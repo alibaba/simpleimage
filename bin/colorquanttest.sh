@@ -1,0 +1,11 @@
+#!/bin/bash
+
+PRG="$0"
+PRGDIR=`dirname "$PRG"`
+APP_HOME=`cd "$PRGDIR/.." ; pwd`
+
+JAVA_MEM_OPTS=" -server -Xmx2g -Xms2g -Xmn1024m -XX:MaxPermSize=128m -Xss256k -XX:+DisableExplicitGC -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+UseCMSCompactAtFullCollection -XX:+UseFastAccessorMethods -XX:+UseCMSInitiatingOccupancyOnly -XX:+AggressiveOpts -XX:+UseBiasedLocking "
+
+JAVA_CP=$APP_HOME/target/simpleimage-1.1.5.jar:$APP_HOME/lib/*:$APP_HOME/target/test-classes
+
+taskset -c 0-6   java $JAVA_MEM_OPTS -classpath $JAVA_CP com.alibaba.simpleimage.ColorQuantPerfTest $APP_HOME $1 $2 $3
