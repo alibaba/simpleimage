@@ -1,6 +1,73 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+<<<<<<< HEAD
+	<groupId>com.alibaba</groupId>
+	<artifactId>simpleimage</artifactId>
+	<version>1.1.8</version>
+	<name>simple image</name>
+	<packaging>jar</packaging>
+	<description>Pure Java Image library</description>
+	<properties>
+		<file_encoding>UTF-8</file_encoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<developers>
+		<developer>
+			<id>wendellxoo</id>
+			<name>wendell</name>
+			<email>wendellxoo@gmail.com</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>https://wendellxoo@github.com/AlibabaTech/simpleimage.git</url>
+		<connection>scm:git:https://wendellxoo@github.com/AlibabaTech/simpleimage.git</connection>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>opensesame</id>
+			<url>dav:http://code.alibabatech.com/mvn/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>opensesame</id>
+			<url>dav:http://code.alibabatech.com/mvn/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<organization>
+		<name>Alibaba Group</name>
+		<url>http://code.alibabatech.com/</url>
+	</organization>
+
+	<licenses>
+		<license>
+			<name>Apache 2</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
+
+	<repositories>
+		<repository>
+			<id>local-file</id>
+			<url>file://${basedir}/jailib/</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav</artifactId>
+				<version>1.0-beta-2</version>
+			</extension>
+		</extensions>
+=======
 	<parent>
 		<groupId>com.alibaba</groupId>
 		<artifactId>pampas</artifactId>
@@ -50,6 +117,7 @@
 		</dependency>
 	</dependencies>
 	<build>
+>>>>>>> 7af67c39dc921303074dd59940af6d56acd84f3d
 		<plugins>
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
@@ -76,6 +144,12 @@
 				<version>2.3.1</version>
 				<configuration>
 					<optimize>true</optimize>
+<<<<<<< HEAD
+					<encoding>UTF-8</encoding>
+					<source>1.5</source>
+					<target>1.5</target>
+=======
+>>>>>>> 7af67c39dc921303074dd59940af6d56acd84f3d
 				</configuration>
 				<dependencies>
 					<dependency>
@@ -87,4 +161,61 @@
 			</plugin>
 		</plugins>
 	</build>
+<<<<<<< HEAD
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.media</groupId>
+			<artifactId>jai_cliwrapper_jiio</artifactId>
+			<version>1.1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.media</groupId>
+			<artifactId>jai_core</artifactId>
+			<version>1.1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.media</groupId>
+			<artifactId>jai_codec</artifactId>
+			<version>1.1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.media</groupId>
+			<artifactId>jai_imageio</artifactId>
+			<version>1.1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.media</groupId>
+			<artifactId>jai_mlibwrapper</artifactId>
+			<version>1.1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.12</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+	</dependencies>
+=======
+>>>>>>> 7af67c39dc921303074dd59940af6d56acd84f3d
 </project>
