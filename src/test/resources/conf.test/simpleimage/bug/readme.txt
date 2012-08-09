@@ -1,0 +1,3 @@
+这个文件的图片都是目前经过simpleimage处理后有问题的图片
+
+tojpeg.png 这张图片由PNG转为JPEG的时候，输出的图像会有问题
