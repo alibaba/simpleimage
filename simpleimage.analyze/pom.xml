@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.alibaba</groupId>
-	        <artifactId>simpleimage.parent</artifactId>
-        	<version>1.1.9</version>
+		<artifactId>simpleimage.parent</artifactId>
+		<version>1.1.9</version>
 	</parent>
 
 	<groupId>com.alibaba</groupId>
@@ -20,6 +20,11 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>simpleimage.core</artifactId>
+			<version>1.1.9</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
