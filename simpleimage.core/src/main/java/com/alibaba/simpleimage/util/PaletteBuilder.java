@@ -21,9 +21,9 @@ import javax.imageio.ImageTypeSpecifier;
  * Chapter 4, pages 297-293)
  */
 /**
- * OracleµÄÊµÏÖÓĞbug£¬¶øÇÒĞÔÄÜÓĞ´ı¸Ä½ø£¬ËùÒÔÔÚOracleµÄ»ù´¡ÉÏÊµÏÖ×Ô¼ºµÄ°æ±¾
+ * Oracleçš„å®ç°æœ‰bugï¼Œè€Œä¸”æ€§èƒ½æœ‰å¾…æ”¹è¿›ï¼Œæ‰€ä»¥åœ¨Oracleçš„åŸºç¡€ä¸Šå®ç°è‡ªå·±çš„ç‰ˆæœ¬
  * 
- * @author wendell 2011-8-18 ÏÂÎç02:37:44
+ * @author wendell 2011-8-18 ä¸‹åˆ02:37:44
  */
 public class PaletteBuilder {
 
@@ -152,8 +152,8 @@ public class PaletteBuilder {
     }
 
     /**
-     * Ô­·½·¨Ç©Ãû private Color getSrcColor(int x, int y)£¬Ô­ÊµÏÖ·µ»ØÒ»¸öColor¶ÔÏó£¬¶ÔÓÚÒ»ÕÅÉÏ°ÙÍòÏñËØµÄÍ¼Æ¬£¬½«»á²úÉú
-     * ÉÏ°ÙÍò¸ö¶ÔÏó£¬¶ÔĞÔÄÜÓĞÑÏÖØÓ°Ïì£¬¹Ë¸ÄÎª·µ»ØÕûĞÎ£¬×÷ÎªÌæ´ú
+     * åŸæ–¹æ³•ç­¾å private Color getSrcColor(int x, int y)ï¼ŒåŸå®ç°è¿”å›ä¸€ä¸ªColorå¯¹è±¡ï¼Œå¯¹äºä¸€å¼ ä¸Šç™¾ä¸‡åƒç´ çš„å›¾ç‰‡ï¼Œå°†ä¼šäº§ç”Ÿ
+     * ä¸Šç™¾ä¸‡ä¸ªå¯¹è±¡ï¼Œå¯¹æ€§èƒ½æœ‰ä¸¥é‡å½±å“ï¼Œé¡¾æ”¹ä¸ºè¿”å›æ•´å½¢ï¼Œä½œä¸ºæ›¿ä»£
      * @param x
      * @param y
      * @return
@@ -269,7 +269,7 @@ public class PaletteBuilder {
 
     protected IndexColorModel getIndexColorModel() {
         int size = currSize;
-        // bugfix Ô­À´µÄÊµÏÖ»áµ¼ÖÂ´øÓĞÍ¸Ã÷µÄGIFÍ¼Æ¬ÖØĞÂË÷ÒıÑÕÉ«ºó±äµÃ²»Í¸Ã÷
+        // bugfix åŸæ¥çš„å®ç°ä¼šå¯¼è‡´å¸¦æœ‰é€æ˜çš„GIFå›¾ç‰‡é‡æ–°ç´¢å¼•é¢œè‰²åå˜å¾—ä¸é€æ˜
         // if (transparency == Transparency.BITMASK) {
         if (transparency != Transparency.OPAQUE) {
             size++; // we need place for transparent color;

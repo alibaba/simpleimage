@@ -26,9 +26,9 @@ import com.alibaba.simpleimage.render.DrawTextParameter;
 import com.alibaba.simpleimage.render.WatermarkParameter;
 
 /**
- * JAIÍ¼Æ¬´¦Àí¸¨ÖúÀà
+ * JAIå›¾ç‰‡å¤„ç†è¾…åŠ©ç±»
  * 
- * @author xianmao.hexm 2007-12-13 ÏÂÎç02:34:51
+ * @author xianmao.hexm 2007-12-13 ä¸‹åˆ02:34:51
  */
 public class ImageDrawHelper {
 

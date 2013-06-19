@@ -13,19 +13,19 @@ import junit.framework.TestCase;
 
 
 /**
- * ÀàTestFootnoteDrawTextItem.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö 
- * @author wendell 2011-3-28 ÏÂÎç03:42:05
+ * ç±»TestFootnoteDrawTextItem.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿° 
+ * @author wendell 2011-3-28 ä¸‹åˆ03:42:05
  */
 public class TestFootnoteDrawTextItem extends TestCase {
     public void testDefaultValue() {
-        FootnoteDrawTextItem item = new FootnoteDrawTextItem("°¢Àï°Í°Í", "alibaba.com.cn");
+        FootnoteDrawTextItem item = new FootnoteDrawTextItem("é˜¿é‡Œå·´å·´", "alibaba.com.cn");
         assertEquals(item.getDomainName(), "alibaba.com.cn");
-        assertEquals(item.getText(), "°¢Àï°Í°Í");
+        assertEquals(item.getText(), "é˜¿é‡Œå·´å·´");
         assertEquals(item.getTextWidthPercent(), 0.8f);
         assertEquals(item.getFontColor(), new Color(255, 255, 255, 153));
         assertEquals(item.getFontShadowColor(), new Color(170, 170, 170, 115));
         String fontName = item.getFont().getFontName();
-        boolean ret = "·½ÕıºÚÌå_GBK".equalsIgnoreCase(fontName) || "FZHei-B01".equalsIgnoreCase(fontName);
+        boolean ret = "æ–¹æ­£é»‘ä½“_GBK".equalsIgnoreCase(fontName) || "FZHei-B01".equalsIgnoreCase(fontName);
         assertTrue(ret);
 //        assertEquals(item.getDomainFont().getFontName(), "Arial");
     }

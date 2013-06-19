@@ -30,9 +30,9 @@ import javax.media.jai.RasterFormatTag;
 import com.alibaba.simpleimage.util.ImageUtils;
 
 /**
- * Lanczos缩路算法实现，参考自ImageMagick http://www.imagemagick.org
+ * Lanczos缂╄矾绠楁硶瀹炵幇锛屽弬鑰冭嚜ImageMagick http://www.imagemagick.org
  * 
- * @author wendell 2011-3-29 上午11:13:35
+ * @author wendell 2011-3-29 涓婂崍11:13:35
  */
 public class LanczosScaleOp {
 

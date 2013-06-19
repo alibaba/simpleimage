@@ -23,9 +23,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * ÀàFontLoader.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö
+ * ç±»FontLoader.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿°
  * 
- * @author wendell 2011-4-19 ÏÂÎç04:03:59
+ * @author wendell 2011-4-19 ä¸‹åˆ04:03:59
  */
 public class FontLoader {
 

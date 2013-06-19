@@ -31,8 +31,8 @@ import javax.media.jai.RasterFormatTag;
 import com.alibaba.simpleimage.util.ImageUtils;
 
 /**
- * ÓÉÓÚ´æÔÚ·Ö¿éµ¼ÖÂËõÂÔºóÍ¼Æ¬ÓĞÎÊÌâ£¬ËùÒÔÔİÊ±·ÅÆúÀûÓÃJAIÊµÏÖLanczosµÄÏë·¨£¬
- * lanczosËã·¨ÔÚLanczosScaleOpÖĞÊµÏÖ
+ * ç”±äºå­˜åœ¨åˆ†å—å¯¼è‡´ç¼©ç•¥åå›¾ç‰‡æœ‰é—®é¢˜ï¼Œæ‰€ä»¥æš‚æ—¶æ”¾å¼ƒåˆ©ç”¨JAIå®ç°Lanczosçš„æƒ³æ³•ï¼Œ
+ * lanczosç®—æ³•åœ¨LanczosScaleOpä¸­å®ç°
  * @author wendell
  */
 @Deprecated

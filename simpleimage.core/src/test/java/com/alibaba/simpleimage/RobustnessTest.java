@@ -27,7 +27,7 @@ import com.alibaba.simpleimage.render.ReadRender;
 import com.alibaba.simpleimage.render.WriteRender;
 
 /**
- * 主要测试读取格式有问题的图片
+ * 涓昏娴嬭瘯璇诲彇鏍煎紡鏈夐棶棰樼殑鍥剧墖
  * 
  * @author wendell
  */

@@ -26,8 +26,8 @@ import com.alibaba.simpleimage.util.ImageColorConvertHelper;
 import com.alibaba.simpleimage.util.ImageReadHelper;
 
 /**
- * ReadRender ֧�ֶ��ַ�ʽ��ȡͼƬ��ͬʱ������ɫ�ռ�ת����ת��RGB�� Ŀǰ֧�ֵĸ�ʽ�� JPEG ���� CMYK��RGB��ɫ�ռ� PNG ����
- * 16λ��256λ��ɫ���ڰף���һɫ����ɫ��PNG GIF ����GIF 87a��GIF 89a BMP TIFF ���� 16λ��256λ���Ҷȵ�
+ * ReadRender 支持多种方式读取图片，同时进行颜色空间转换（转成RGB） 目前支持的格式有 JPEG 包括 CMYK和RGB颜色空间 PNG 包括
+ * 16位、256位颜色，黑白，单一色和真色的PNG GIF 包括GIF 87a和GIF 89a BMP TIFF 包括 16位、256位，灰度等
  * 
  * @author wendell
  */

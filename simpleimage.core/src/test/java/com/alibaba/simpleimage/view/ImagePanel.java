@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 import com.alibaba.simpleimage.ImageWrapper;
 
 /**
- * ÀàImagePanel.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö 
- * @author wendell 2011-7-21 ÏÂÎç04:52:11
+ * ç±»ImagePanel.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿° 
+ * @author wendell 2011-7-21 ä¸‹åˆ04:52:11
  */
 public class ImagePanel extends JPanel {
     /**

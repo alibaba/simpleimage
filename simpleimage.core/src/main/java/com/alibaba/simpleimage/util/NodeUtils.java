@@ -22,8 +22,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * ÀàNodeUtils.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö 
- * @author wendell 2011-8-29 ÏÂÎç03:13:23
+ * ç±»NodeUtils.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿° 
+ * @author wendell 2011-8-29 ä¸‹åˆ03:13:23
  */
 public class NodeUtils {
     

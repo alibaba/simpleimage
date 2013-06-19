@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * 非同步的<code>ByteArrayInputStream</code>替换方案, 本代码移植自IBM developer works精彩文章, 参见package文档.
+ * 闈炲悓姝ョ殑<code>ByteArrayInputStream</code>鏇挎崲鏂规, 鏈唬鐮佺Щ妞嶈嚜IBM developer works绮惧僵鏂囩珷, 鍙傝package鏂囨。.
  * 
  * @author Michael Zhou
  * @author wendell
@@ -110,7 +110,7 @@ public class ByteArrayInputStream extends InputStream {
     }
 
     public void close() {
-        // 为了保证错误处理，暂时不支持关闭
+        // 涓轰簡淇濊瘉閿欒澶勭悊锛屾殏鏃朵笉鏀寔鍏抽棴
         // closed = true;
     }
 

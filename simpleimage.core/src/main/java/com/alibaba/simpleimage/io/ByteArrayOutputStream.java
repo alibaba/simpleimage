@@ -20,8 +20,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * ±¾´úÂë×¨ÎªÍ¼Æ¬»º´æÊ¹ÓÃ£¬¹ÊÄ¬ÈÏ»º³åÇøÉèµÃ±È½Ï´ó ·ÇÍ¬²½µÄ<code>ByteArrayOutputStream</code>Ìæ»»·½°¸, Ö´ĞĞ<code>toByteArray()</code>·½·¨Ê±·µ»ØµÄÊÇÖ»¶ÁµÄÄÚ²¿×Ö½ÚÊı×é,
- * ±ÜÃâÁËÃ»ÓĞ±ØÒªµÄ×Ö½Ú¸´ÖÆ. ±¾´úÂëÒÆÖ²×ÔIBM developer works¾«²ÊÎÄÕÂ, ²Î¼ûpackageÎÄµµ.
+ * æœ¬ä»£ç ä¸“ä¸ºå›¾ç‰‡ç¼“å­˜ä½¿ç”¨ï¼Œæ•…é»˜è®¤ç¼“å†²åŒºè®¾å¾—æ¯”è¾ƒå¤§ éåŒæ­¥çš„<code>ByteArrayOutputStream</code>æ›¿æ¢æ–¹æ¡ˆ, æ‰§è¡Œ<code>toByteArray()</code>æ–¹æ³•æ—¶è¿”å›çš„æ˜¯åªè¯»çš„å†…éƒ¨å­—èŠ‚æ•°ç»„,
+ * é¿å…äº†æ²¡æœ‰å¿…è¦çš„å­—èŠ‚å¤åˆ¶. æœ¬ä»£ç ç§»æ¤è‡ªIBM developer worksç²¾å½©æ–‡ç« , å‚è§packageæ–‡æ¡£.
  * 
  * @author Michael Zhou
  * @author wendell
@@ -101,7 +101,7 @@ public class ByteArrayOutputStream extends OutputStream {
     }
 
     public void close() {
-        // ÎªÁË±£Ö¤´íÎó´¦Àí£¬ÔİÊ±²»Ö§³Ö¹Ø±Õ
+        // ä¸ºäº†ä¿è¯é”™è¯¯å¤„ç†ï¼Œæš‚æ—¶ä¸æ”¯æŒå…³é—­
         // closed = true;
     }
 

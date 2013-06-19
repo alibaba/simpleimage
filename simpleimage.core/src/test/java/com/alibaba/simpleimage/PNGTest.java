@@ -8,9 +8,9 @@ package com.alibaba.simpleimage;
 import java.io.File;
 
 /**
- * ÀàPNGTest.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö
+ * ç±»PNGTest.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿°
  * 
- * @author wendell 2011-8-16 ÏÂÎç06:42:32
+ * @author wendell 2011-8-16 ä¸‹åˆ06:42:32
  */
 public class PNGTest extends BaseTest {
 

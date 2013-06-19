@@ -28,7 +28,7 @@ import com.alibaba.simpleimage.SimpleImageException;
 import com.alibaba.simpleimage.util.ImageWriteHelper;
 
 /**
- * ÏòÁ÷Ğ´³öencodeÍ¼ĞÎÊı¾İ¡£
+ * å‘æµå†™å‡ºencodeå›¾å½¢æ•°æ®ã€‚
  * 
  * @author wendell
  */

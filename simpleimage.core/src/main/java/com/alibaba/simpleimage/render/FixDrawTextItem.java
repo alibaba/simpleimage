@@ -25,15 +25,15 @@ import org.apache.commons.lang.StringUtils;
 import com.alibaba.simpleimage.font.FontManager;
 
 /**
- * ÀàCenterDrawTextItem.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö
+ * ç±»CenterDrawTextItem.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿°
  * 
- * @author wendell 2011-3-28 ÏÂÎç02:03:40
+ * @author wendell 2011-3-28 ä¸‹åˆ02:03:40
  */
 public class FixDrawTextItem extends DrawTextItem {
 
     static final Color FONT_COLOR                 = new Color(255, 255, 255, 115);
     static final Color FONT_SHADOW_COLOR          = new Color(170, 170, 170, 77);
-    static final Font  FONT                       = FontManager.getFont("·½ÕıºÚÌå");
+    static final Font  FONT                       = FontManager.getFont("æ–¹æ­£é»‘ä½“");
     static final float DEFAULT_TEXT_WIDTH_PERCENT = 0.85F;
 
     public enum Position {
@@ -92,11 +92,11 @@ public class FixDrawTextItem extends DrawTextItem {
         int x = 0, y = 0;
         int fontsize = 1;
         if (position == Position.CENTER) {
-            // ¼ÆËãË®Ó¡ÎÄ×Ö×Ü³¤¶È
+            // è®¡ç®—æ°´å°æ–‡å­—æ€»é•¿åº¦
             int textLength = (int) (width * textWidthPercent);
-            // ¼ÆËãË®Ó¡×ÖÌå´óĞ¡
+            // è®¡ç®—æ°´å°å­—ä½“å¤§å°
             fontsize = textLength / text.length();
-            // Ì«Ğ¡ÁË.....²»ÏÔÊ¾
+            // å¤ªå°äº†.....ä¸æ˜¾ç¤º
             if (fontsize < minFontSize) {
                 return;
             }
@@ -107,7 +107,7 @@ public class FixDrawTextItem extends DrawTextItem {
             FontRenderContext context = graphics.getFontRenderContext();
             int sw = (int) font.getStringBounds(text, context).getWidth();
 
-            // ¼ÆËã×ÖÌåµÄ×ø±ê
+            // è®¡ç®—å­—ä½“çš„åæ ‡
             x = (width - sw) / 2;
             y = height / 2 + fontsize / 2;
         } else if (position == Position.TOP_LEFT) {

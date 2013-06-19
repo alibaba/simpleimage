@@ -25,8 +25,8 @@ import com.alibaba.simpleimage.render.WriteRender;
 
 
 /**
- * ÀàGIFTest.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö 
- * @author wendell 2011-8-16 ÏÂÎç02:25:26
+ * ç±»GIFTest.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿° 
+ * @author wendell 2011-8-16 ä¸‹åˆ02:25:26
  */
 public class GIFTest extends BaseTest {
 

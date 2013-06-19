@@ -26,8 +26,8 @@ import com.alibaba.simpleimage.render.WriteRender;
 
 
 /**
- * ÀàWatermarkTest.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö 
- * @author wendell 2011-8-17 ÏÂÎç05:18:52
+ * ç±»WatermarkTest.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿° 
+ * @author wendell 2011-8-17 ä¸‹åˆ05:18:52
  */
 public class WatermarkTest extends TestCase {
 

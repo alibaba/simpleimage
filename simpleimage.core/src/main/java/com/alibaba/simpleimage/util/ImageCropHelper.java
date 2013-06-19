@@ -24,7 +24,7 @@ import javax.media.jai.RenderedOp;
 import com.alibaba.simpleimage.render.CropParameter;
 
 /**
- * Í¼Æ¬²Ã¼ô°ïÖúÀà
+ * å›¾ç‰‡è£å‰ªå¸®åŠ©ç±»
  * 
  * @author willian.huw
  */

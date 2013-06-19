@@ -28,8 +28,8 @@ import org.w3c.dom.Node;
 import com.alibaba.simpleimage.util.NodeUtils;
 
 /**
- * Õâ¸öÀà´æÔÚµÄÒâÒåÔÚÓÚ¿ÉÒÔ±ÈBufferedImageºÍPlanarImageÌá¹©¸ü¶àµÄÍ¼Æ¬µÄÔ´ĞÅÏ¢£¬Í¬Ê±¿ÉÒÔ±£´æÏñGIFÕâÑù¶à¸±Í¼Æ¬µÄÍ¼Æ¬¸ñÊ½¡£ ±ÈÈçËµ¿ÉÒÔ±£´æJPEGµÄquality£¬²ÉÑù²ÎÊıµÈ
- * ¶ÔÓÚPNG£¬BMPºÍGIFÕâÈıÀàÎŞËğÑ¹ËõµÄÍ¼Æ¬¸ñÊ½£¬quality²¢Ã»ÓĞÒâÒå ÕâÀïÉèÖÃÎª93Ö»ÊÇ±íÊ¾£¬ÕâÈıÀàÍ¼Æ¬Ò»µ©°´JPEG¸ñÊ½±£´æµÄ»°£¬Ä¬ÈÏµÄqualityÊÇ93
+ * è¿™ä¸ªç±»å­˜åœ¨çš„æ„ä¹‰åœ¨äºå¯ä»¥æ¯”BufferedImageå’ŒPlanarImageæä¾›æ›´å¤šçš„å›¾ç‰‡çš„æºä¿¡æ¯ï¼ŒåŒæ—¶å¯ä»¥ä¿å­˜åƒGIFè¿™æ ·å¤šå‰¯å›¾ç‰‡çš„å›¾ç‰‡æ ¼å¼ã€‚ æ¯”å¦‚è¯´å¯ä»¥ä¿å­˜JPEGçš„qualityï¼Œé‡‡æ ·å‚æ•°ç­‰
+ * å¯¹äºPNGï¼ŒBMPå’ŒGIFè¿™ä¸‰ç±»æ— æŸå‹ç¼©çš„å›¾ç‰‡æ ¼å¼ï¼Œqualityå¹¶æ²¡æœ‰æ„ä¹‰ è¿™é‡Œè®¾ç½®ä¸º93åªæ˜¯è¡¨ç¤ºï¼Œè¿™ä¸‰ç±»å›¾ç‰‡ä¸€æ—¦æŒ‰JPEGæ ¼å¼ä¿å­˜çš„è¯ï¼Œé»˜è®¤çš„qualityæ˜¯93
  * 
  * @author wendell
  */
@@ -175,9 +175,9 @@ public class ImageWrapper extends MetadataRenderedImage {
     }
 
     /**
-     * Èç¹ûÊÇ³ıGIFÒÔÍâµÄÍ¼Æ¬£¬getWidth()ÓëgetWidth(0)µÈ¼Û£¬¼È·µ»ØµÚÒ»ÕÅÍ¼Æ¬µÄ¿í¶È Èç¹ûÊÇGIF£¬Ôò¶ÁÈ¡GIFµÄÔªĞÅÏ¢À´»ñÈ¡Í¼Æ¬¿í¶È£¬Õâ¸öÖµ²»Ò»¶¨ºÍgetWidth(0)ÏàµÈ
+     * å¦‚æœæ˜¯é™¤GIFä»¥å¤–çš„å›¾ç‰‡ï¼ŒgetWidth()ä¸getWidth(0)ç­‰ä»·ï¼Œæ—¢è¿”å›ç¬¬ä¸€å¼ å›¾ç‰‡çš„å®½åº¦ å¦‚æœæ˜¯GIFï¼Œåˆ™è¯»å–GIFçš„å…ƒä¿¡æ¯æ¥è·å–å›¾ç‰‡å®½åº¦ï¼Œè¿™ä¸ªå€¼ä¸ä¸€å®šå’ŒgetWidth(0)ç›¸ç­‰
      * 
-     * @return Í¼Æ¬¿í¶È
+     * @return å›¾ç‰‡å®½åº¦
      */
     public int getWidth() {
         if (format == ImageFormat.GIF && streamMetadata != null) {
@@ -191,9 +191,9 @@ public class ImageWrapper extends MetadataRenderedImage {
     }
 
     /**
-     * Èç¹ûÊÇ³ıGIFÒÔÍâµÄÍ¼Æ¬£¬getHeight()ÓëgetHeight(0)µÈ¼Û£¬¼È·µ»ØµÚÒ»ÕÅÍ¼Æ¬µÄ¿í¶È Èç¹ûÊÇGIF£¬Ôò¶ÁÈ¡GIFµÄÔªĞÅÏ¢À´»ñÈ¡Í¼Æ¬¸ß¶È£¬Õâ¸öÖµ²»Ò»¶¨ºÍgetHeight(0)ÏàµÈ
+     * å¦‚æœæ˜¯é™¤GIFä»¥å¤–çš„å›¾ç‰‡ï¼ŒgetHeight()ä¸getHeight(0)ç­‰ä»·ï¼Œæ—¢è¿”å›ç¬¬ä¸€å¼ å›¾ç‰‡çš„å®½åº¦ å¦‚æœæ˜¯GIFï¼Œåˆ™è¯»å–GIFçš„å…ƒä¿¡æ¯æ¥è·å–å›¾ç‰‡é«˜åº¦ï¼Œè¿™ä¸ªå€¼ä¸ä¸€å®šå’ŒgetHeight(0)ç›¸ç­‰
      * 
-     * @return Í¼Æ¬¸ß¶È
+     * @return å›¾ç‰‡é«˜åº¦
      */
     public int getHeight() {
         if (format == ImageFormat.GIF && streamMetadata != null) {
@@ -255,7 +255,7 @@ public class ImageWrapper extends MetadataRenderedImage {
     }
 
     /**
-     * Õâ¸ö²ÎÊıÖ»ÓĞÍ¼Æ¬¸ñÊ½ÊÇJPEGµÄÊ±ºò²ÅÓĞÒâÒå£¬±íÊ¾Í¼Æ¬ÄÚÈİÒÑ¾­Ëğ»µ
+     * è¿™ä¸ªå‚æ•°åªæœ‰å›¾ç‰‡æ ¼å¼æ˜¯JPEGçš„æ—¶å€™æ‰æœ‰æ„ä¹‰ï¼Œè¡¨ç¤ºå›¾ç‰‡å†…å®¹å·²ç»æŸå
      * 
      * @return the broken
      */
@@ -264,7 +264,7 @@ public class ImageWrapper extends MetadataRenderedImage {
     }
 
     /**
-     * Õâ¸ö²ÎÊıÖ»ÓĞÍ¼Æ¬¸ñÊ½ÊÇJPEGµÄÊ±ºò²ÅÓĞÒâÒå£¬±íÊ¾Í¼Æ¬ÄÚÈİÒÑ¾­Ëğ»µ
+     * è¿™ä¸ªå‚æ•°åªæœ‰å›¾ç‰‡æ ¼å¼æ˜¯JPEGçš„æ—¶å€™æ‰æœ‰æ„ä¹‰ï¼Œè¡¨ç¤ºå›¾ç‰‡å†…å®¹å·²ç»æŸå
      * 
      * @param broken the broken to set
      */

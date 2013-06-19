@@ -39,11 +39,11 @@ public class DrawTextTest extends TestCase {
 
     static final Color FONT_COLOR        = new Color(255, 255, 255, 115);
     static final Color FONT_SHADOW_COLOR = new Color(170, 170, 170, 77);
-    static final Font  FONT              = new Font("黑体", Font.PLAIN, 10);
+    static final Font  FONT              = new Font("榛戜綋", Font.PLAIN, 10);
 
     protected DrawTextParameter getParam() {
         DrawTextParameter param = new DrawTextParameter();
-        param.addTextInfo(new FixDrawTextItem("这是测试中文好不好用"));
+        param.addTextInfo(new FixDrawTextItem("杩欐槸娴嬭瘯涓枃濂戒笉濂界敤"));
 
         return param;
     }
@@ -84,7 +84,7 @@ public class DrawTextTest extends TestCase {
     }
 
     public void testCornerDrawTextItem() throws Exception {
-        CornerDrawTextItem item = new CornerDrawTextItem("阿里巴巴");
+        CornerDrawTextItem item = new CornerDrawTextItem("闃块噷宸村反");
         doDrawImageText("334.jpg", "corner-", item);
         doDrawImageText("yuan.jpg", "corner-", item);
         doDrawImageText("snow.jpg", "corner-", item);
@@ -92,8 +92,8 @@ public class DrawTextTest extends TestCase {
     }
 
     public void testFixDrawTextItem() throws Exception {
-        FixDrawTextItem item = new FixDrawTextItem("远华贸易实业有限公司", new Color(255, 255, 255, 115), new Color(170, 170, 170, 77), 
-                                                   FontManager.getFont("方正黑体"), 10, FixDrawTextItem.Position.BOTTOM_RIGHT, 0.5f);
+        FixDrawTextItem item = new FixDrawTextItem("杩滃崕璐告槗瀹炰笟鏈夐檺鍏徃", new Color(255, 255, 255, 115), new Color(170, 170, 170, 77), 
+                                                   FontManager.getFont("鏂规榛戜綋"), 10, FixDrawTextItem.Position.BOTTOM_RIGHT, 0.5f);
         doDrawImageText("334.jpg", "fix-", item);
         doDrawImageText("yuan.jpg", "fix-", item);
         doDrawImageText("snow.jpg", "fix-", item);
@@ -101,7 +101,7 @@ public class DrawTextTest extends TestCase {
     }
 
     public void testFootnoteDrawTextItem() throws Exception {
-        FootnoteDrawTextItem item = new FootnoteDrawTextItem("阿里巴巴网络(中国)有限公司", "cheneychenc.alibaba.com.cn");
+        FootnoteDrawTextItem item = new FootnoteDrawTextItem("闃块噷宸村反缃戠粶(涓浗)鏈夐檺鍏徃", "cheneychenc.alibaba.com.cn");
         doDrawImageText("334.jpg", "footnote-", item);
         doDrawImageText("yuan.jpg", "footnote-", item);
         doDrawImageText("snow.jpg", "footnote-", item);

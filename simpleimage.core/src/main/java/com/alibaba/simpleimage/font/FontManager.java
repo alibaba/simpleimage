@@ -20,16 +20,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * ÀàFontManager.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö
+ * ç±»FontManager.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿°
  * 
- * @author wendell 2011-4-19 ÏÂÎç01:41:58
+ * @author wendell 2011-4-19 ä¸‹åˆ01:41:58
  */
 public class FontManager {
 
     private static final Map<String, FontLoader> caches = new HashMap<String, FontLoader>();
 
     static {
-        //TODO ÖØĞÂÊµÏÖ
+        //TODO é‡æ–°å®ç°
     }
 
     public static Font getFont(String name) {

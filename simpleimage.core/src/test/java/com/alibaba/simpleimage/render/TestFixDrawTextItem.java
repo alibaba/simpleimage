@@ -13,8 +13,8 @@ import junit.framework.TestCase;
 
 
 /**
- * ÀàTestFixDrawTextItem.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö 
- * @author wendell 2011-3-28 ÏÂÎç03:34:50
+ * ç±»TestFixDrawTextItem.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿° 
+ * @author wendell 2011-3-28 ä¸‹åˆ03:34:50
  */
 public class TestFixDrawTextItem extends TestCase {
 
@@ -22,14 +22,14 @@ public class TestFixDrawTextItem extends TestCase {
      * Test method for {@link com.alibaba.simpleimage.render.FixDrawTextItem#getPosition()}.
      */
     public void testDefaultValue() {
-        FixDrawTextItem item = new FixDrawTextItem("°¢Àï°Í°Í");
+        FixDrawTextItem item = new FixDrawTextItem("é˜¿é‡Œå·´å·´");
         assertEquals(item.getPosition(), FixDrawTextItem.Position.CENTER);
         assertEquals(item.getTextWidthPercent(), 0.85f);
-        assertEquals(item.getText(), "°¢Àï°Í°Í");
+        assertEquals(item.getText(), "é˜¿é‡Œå·´å·´");
         assertEquals(item.getFontColor(), new Color(255, 255, 255, 115));
         assertEquals(item.getFontShadowColor(), new Color(170, 170, 170, 77));
         String fontName = item.getFont().getFontName();
-        boolean ret = "·½ÕıºÚÌå_GBK".equalsIgnoreCase(fontName) || "FZHei-B01".equalsIgnoreCase(fontName);
+        boolean ret = "æ–¹æ­£é»‘ä½“_GBK".equalsIgnoreCase(fontName) || "FZHei-B01".equalsIgnoreCase(fontName);
         assertTrue(ret);
     }
 }
