@@ -1,55 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.alibaba</groupId>
+	        <artifactId>simpleimage.parent</artifactId>
+        	<version>1.1.9</version>
+	</parent>
+
 	<groupId>com.alibaba</groupId>
-	<artifactId>simpleimage</artifactId>
-	<version>1.1.8</version>
-	<name>simple image</name>
+	<artifactId>simpleimage.core</artifactId>
+	<name>simpleimage.core</name>
 	<packaging>jar</packaging>
-	<description>Pure Java Image library</description>
-	<properties>
-		<file_encoding>GBK</file_encoding>
-		<project.build.sourceEncoding>GBK</project.build.sourceEncoding>
-	</properties>
-
-	<developers>
-		<developer>
-			<id>wendellxoo</id>
-			<name>wendell</name>
-			<email>wendellxoo@gmail.com</email>
-		</developer>
-	</developers>
-
-	<scm>
-		<url>https://wendellxoo@github.com/AlibabaTech/simpleimage.git</url>
-		<connection>scm:git:https://wendellxoo@github.com/AlibabaTech/simpleimage.git</connection>
-	</scm>
-
-	<distributionManagement>
-		<repository>
-			<id>opensesame</id>
-			<url>dav:http://code.alibabatech.com/mvn/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>opensesame</id>
-			<url>dav:http://code.alibabatech.com/mvn/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
-
-	<organization>
-		<name>Alibaba Group</name>
-		<url>http://code.alibabatech.com/</url>
-	</organization>
-
-	<licenses>
-		<license>
-			<name>Apache 2</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-			<comments>A business-friendly OSS license</comments>
-		</license>
-	</licenses>
-
+	
 	<repositories>
 		<repository>
 			<id>local-file</id>

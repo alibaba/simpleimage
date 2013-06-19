@@ -1,0 +1,89 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.alibaba</groupId>
+	<artifactId>simpleimage.parent</artifactId>
+	<version>1.1.9</version>
+	<name>simple image</name>
+	<packaging>pom</packaging>
+	<description>Pure Java Image library</description>
+	<properties>
+		<file_encoding>GBK</file_encoding>
+		<project.build.sourceEncoding>GBK</project.build.sourceEncoding>
+	</properties>
+
+	<developers>
+		<developer>
+			<id>wendellxoo</id>
+			<name>wendell</name>
+			<email>wendellxoo@gmail.com</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<url>https://wendellxoo@github.com/AlibabaTech/simpleimage.git</url>
+		<connection>scm:git:https://wendellxoo@github.com/AlibabaTech/simpleimage.git</connection>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>opensesame</id>
+			<url>dav:http://code.alibabatech.com/mvn/releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>opensesame</id>
+			<url>dav:http://code.alibabatech.com/mvn/snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<organization>
+		<name>Alibaba Group</name>
+		<url>http://code.alibabatech.com/</url>
+	</organization>
+
+	<licenses>
+		<license>
+			<name>Apache 2</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
+
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav</artifactId>
+				<version>1.0-beta-2</version>
+			</extension>
+		</extensions>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.1</version>
+				<configuration>
+					<optimize>true</optimize>
+					<encoding>GBK</encoding>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.plexus</groupId>
+						<artifactId>plexus-compiler-javac</artifactId>
+						<version>1.8.1-patch</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+	<modules>
+		<module>simpleimage.core</module>
+	</modules>
+
+</project>
+
