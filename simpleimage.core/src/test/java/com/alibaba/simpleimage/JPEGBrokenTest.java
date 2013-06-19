@@ -14,9 +14,9 @@ import junit.framework.TestCase;
 import com.alibaba.simpleimage.render.ReadRender;
 
 /**
- * ÀàJPEGBrokenTest.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö
+ * ç±»JPEGBrokenTest.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿°
  * 
- * @author wendell 2011-6-16 ÏÂÎç05:21:07
+ * @author wendell 2011-6-16 ä¸‹åˆ05:21:07
  */
 public class JPEGBrokenTest extends TestCase {
 

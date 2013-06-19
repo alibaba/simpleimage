@@ -37,9 +37,9 @@ import javax.media.jai.operator.ColorQuantizerType;
 import com.alibaba.simpleimage.render.WriteParameter;
 
 /**
- * ÀàPaletteBuilder2.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö
+ * ç±»PaletteBuilder2.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿°
  * 
- * @author wendell 2011-8-5 ÏÂÎç02:11:53
+ * @author wendell 2011-8-5 ä¸‹åˆ02:11:53
  */
 public class IndexImageBuilder {
 
@@ -97,7 +97,7 @@ public class IndexImageBuilder {
     }
 
     /**
-     * ´Ë·½·¨ÔİÊ±²»ÓÃ£¬µ«ÊÇ²»É¾£¬×öÒÔºó²Î¿¼
+     * æ­¤æ–¹æ³•æš‚æ—¶ä¸ç”¨ï¼Œä½†æ˜¯ä¸åˆ ï¼Œåšä»¥åå‚è€ƒ
      * @return
      */
     RenderedImage createSimpleIndexImage() {

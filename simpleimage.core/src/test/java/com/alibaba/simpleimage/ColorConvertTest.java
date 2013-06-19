@@ -9,7 +9,7 @@ package com.alibaba.simpleimage;
 import java.io.File;
 
 /**
- * ColorConvertTest主要是测试CMYK转RGB的颜色是否失真， 带有内置profile的非标准RGB转成RGB是否失真
+ * ColorConvertTest涓昏鏄祴璇旵MYK杞琑GB鐨勯鑹叉槸鍚﹀け鐪燂紝 甯︽湁鍐呯疆profile鐨勯潪鏍囧噯RGB杞垚RGB鏄惁澶辩湡
  * 
  * @author wendell
  */

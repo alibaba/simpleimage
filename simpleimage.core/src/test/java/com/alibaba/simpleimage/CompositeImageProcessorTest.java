@@ -133,7 +133,7 @@ public class CompositeImageProcessorTest extends TestCase {
                 if (ImageUtils.isGIF(memoryStream)) {
                     suffix = ".gif";
                 }
-                DrawTextParameter dtp = createDrawTextParameter("°¢Àï°Í°Í²âÊÔ", true, true);
+                DrawTextParameter dtp = createDrawTextParameter("é˜¿é‡Œå·´å·´æµ‹è¯•", true, true);
                 inputToStore = ((ByteArrayOutputStream) processor.process(memoryStream, dtp, DEFAULT_SCALE_PARAM.getMaxWidth(), DEFAULT_SCALE_PARAM.getMaxHeight())).toInputStream();
                 String outputName = img.getName().substring(0, img.getName().indexOf("."));
                 outputFile = new File(rpath, "COMPOSITETEST_" + outputName + suffix);

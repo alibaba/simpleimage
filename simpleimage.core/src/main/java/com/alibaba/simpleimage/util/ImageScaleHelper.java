@@ -118,7 +118,7 @@ public class ImageScaleHelper {
         int w = input.getWidth();
         int h = input.getHeight();
 
-        // Èç¹û²»³¬¹ı×î´óÏŞÖÆÔò²»×öÈÎºÎ´¦Àí
+        // å¦‚æœä¸è¶…è¿‡æœ€å¤§é™åˆ¶åˆ™ä¸åšä»»ä½•å¤„ç†
         if (zoom.getMaxWidth() >= w && zoom.getMaxHeight() >= h) {
             return input;
         }
@@ -173,7 +173,7 @@ public class ImageScaleHelper {
     public static PlanarImage bicubicScaleImage(PlanarImage input, float scale, int alg) {
         RenderingHints qualityHints = new RenderingHints(RenderingHints.KEY_RENDERING,
                                                          RenderingHints.VALUE_RENDER_QUALITY);
-        // ±ØĞëÊ¹ÓÃ¸Ãhint£¬·ñÔò»á³öÏÖ±ß¿ò±äºÚµ½Çé¿ö
+        // å¿…é¡»ä½¿ç”¨è¯¥hintï¼Œå¦åˆ™ä¼šå‡ºç°è¾¹æ¡†å˜é»‘åˆ°æƒ…å†µ
         qualityHints.put(JAI.KEY_BORDER_EXTENDER, BorderExtender.createInstance(BorderExtender.BORDER_COPY));
 
         ParameterBlock pb = new ParameterBlock();
@@ -225,7 +225,7 @@ public class ImageScaleHelper {
     }
 
     /**
-     * ÕÛ°ë½¥½øÑ¹ËõÍ¼Æ¬·½·¨ ²âÊÔºó¾õµÃĞ§¹û²»Ì«ÀíÏë£¬²»¹ÄÀøÊ¹ÓÃ
+     * æŠ˜åŠæ¸è¿›å‹ç¼©å›¾ç‰‡æ–¹æ³• æµ‹è¯•åè§‰å¾—æ•ˆæœä¸å¤ªç†æƒ³ï¼Œä¸é¼“åŠ±ä½¿ç”¨
      * 
      * @param img
      * @param targetWidth

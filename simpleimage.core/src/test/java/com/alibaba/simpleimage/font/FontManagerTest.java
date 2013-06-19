@@ -13,13 +13,13 @@ import junit.framework.TestCase;
 
 
 /**
- * ÀàFontManagerTest.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö 
- * @author wendell 2011-5-9 ÏÂÎç01:52:26
+ * ç±»FontManagerTest.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿° 
+ * @author wendell 2011-5-9 ä¸‹åˆ01:52:26
  */
 public class FontManagerTest extends TestCase {
 
     public void testFounderBlack() throws Exception {
-        Font font = FontManager.getFont("·½ÕıºÚÌå");
+        Font font = FontManager.getFont("æ–¹æ­£é»‘ä½“");
         assertNotNull(font);
     }
 }

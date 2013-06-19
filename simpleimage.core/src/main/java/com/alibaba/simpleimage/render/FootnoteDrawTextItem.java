@@ -25,15 +25,15 @@ import org.apache.commons.lang.StringUtils;
 import com.alibaba.simpleimage.font.FontManager;
 
 /**
- * ÀàFootnoteDrawTextItem.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö
+ * ç±»FootnoteDrawTextItem.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿°
  * 
- * @author wendell 2011-3-28 ÏÂÎç02:56:23
+ * @author wendell 2011-3-28 ä¸‹åˆ02:56:23
  */
 public class FootnoteDrawTextItem extends DrawTextItem {
 
     static final Color FONT_COLOR                = new Color(255, 255, 255, 153);
     static final Color FONT_SHADOW_COLOR         = new Color(170, 170, 170, 115);
-    static final Font  DEFAULT_COMPANY_NAME_FONT = FontManager.getFont("·½ÕıºÚÌå");
+    static final Font  DEFAULT_COMPANY_NAME_FONT = FontManager.getFont("æ–¹æ­£é»‘ä½“");
     static final Font  DEFAULT_DOMAIN_NAME_FONT  = new Font("Arial", Font.PLAIN, 10);
     static final float TEXT_WIDTH_PERCENT        = 0.8F;
     static final int   MIN_FONT_SIZE             = 10;

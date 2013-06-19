@@ -45,7 +45,7 @@ public class ImageColorConvertHelper {
             src = convertIndexColorModel2RGB(src);
         }
         
-        // ´Ë´¦±ØĞëÏÈ´¦ÀíCMYK£¬ ·ñÔò£¬ ÔÙ×öColorModel×ª»»µÄÊ±ºò£¬±»µ±4Í¨µÀ´¦ÀíµôÁË¡£ÇĞ¼Ç¡£
+        // æ­¤å¤„å¿…é¡»å…ˆå¤„ç†CMYKï¼Œ å¦åˆ™ï¼Œ å†åšColorModelè½¬æ¢çš„æ—¶å€™ï¼Œè¢«å½“4é€šé“å¤„ç†æ‰äº†ã€‚åˆ‡è®°ã€‚
         if (src.getColorModel().getColorSpace().getType() == ColorSpace.TYPE_CMYK) {
             src = convertCMYK2RGB(src);
         } else if (src.getColorModel().getColorSpace().getType() == ColorSpace.TYPE_GRAY) {
@@ -75,16 +75,16 @@ public class ImageColorConvertHelper {
     }
 
     /**
-     * JAIÔÚ¶Ácmyk¸ñÊ½µÄÊ±ºò·Ö2ÖÖ£º
+     * JAIåœ¨è¯»cmykæ ¼å¼çš„æ—¶å€™åˆ†2ç§ï¼š
      * 
      * <pre>
-     * CMYKµÄÍ¼ĞÎ¶ÁÈ¡£¬JAIÊ¹ÓÃµÄRGBAµÄÄ£Ê½µÄ£¬ Òò´Ë£¬ÎªÁËÌæ»»Ê¹ÓÃ×Ô¼ºµÄColor Profile£¬ Ö±½ÓÊ¹ÓÃformatµÄ²Ù×÷¡£ 
-     * <li>Èç¹ûcmyk×Ô´øÁË ICC_Profile£¬ ÄÇÃ´Êı¾İÊÇ²»»á±»ĞŞ¸ÄµÄ¡£ Õâ¸öÇé¿öÏÂ£¬ ÎÒÃÇÓ¦¸ÃÊ¹ÓÃÄÚÖÃµÄColor Profile</li> 
-     * <li>Èç¹ûcmykÍ¼ĞÎÊ¹ÓÃÄ¬ÈÏµÄICC_Profile, ÄÇÃ´ËûÊ¹ÓÃÄÚÖÃµÄInvertedCMYKColorSpace£¬ ÕâÊÇÊ±ºòÑÕÉ«»á·¢Éú·´×ª</li>
+     * CMYKçš„å›¾å½¢è¯»å–ï¼ŒJAIä½¿ç”¨çš„RGBAçš„æ¨¡å¼çš„ï¼Œ å› æ­¤ï¼Œä¸ºäº†æ›¿æ¢ä½¿ç”¨è‡ªå·±çš„Color Profileï¼Œ ç›´æ¥ä½¿ç”¨formatçš„æ“ä½œã€‚ 
+     * <li>å¦‚æœcmykè‡ªå¸¦äº† ICC_Profileï¼Œ é‚£ä¹ˆæ•°æ®æ˜¯ä¸ä¼šè¢«ä¿®æ”¹çš„ã€‚ è¿™ä¸ªæƒ…å†µä¸‹ï¼Œ æˆ‘ä»¬åº”è¯¥ä½¿ç”¨å†…ç½®çš„Color Profile</li> 
+     * <li>å¦‚æœcmykå›¾å½¢ä½¿ç”¨é»˜è®¤çš„ICC_Profile, é‚£ä¹ˆä»–ä½¿ç”¨å†…ç½®çš„InvertedCMYKColorSpaceï¼Œ è¿™æ˜¯æ—¶å€™é¢œè‰²ä¼šå‘ç”Ÿåè½¬</li>
      * </pre>
      * 
-     * @param src ÈÎÒâÑÕÉ«¿Õ¼äÍ¼ĞÎ
-     * @return ColorSpace.CS_sRGB ±íÊ¾µÄBufferedImage
+     * @param src ä»»æ„é¢œè‰²ç©ºé—´å›¾å½¢
+     * @return ColorSpace.CS_sRGB è¡¨ç¤ºçš„BufferedImage
      */
     public static PlanarImage convertCMYK2RGB(PlanarImage src) {
 
@@ -154,11 +154,11 @@ public class ImageColorConvertHelper {
     public static PlanarImage convertIndexColorModel2RGB(PlanarImage src) {
         ColorModel cm = src.getColorModel();
         /**
-         * IndexColorModel ¨C works with pixel values consisting of a single sample that is an index into a fixed
+         * IndexColorModel â€“ works with pixel values consisting of a single sample that is an index into a fixed
          * colormap in the default sRGB ColorSpace. The colormap specifies red, green, blue, and optional alpha
          * components corresponding to each index.
          */
-        // Ë÷Òıµ÷É«°å£¬ ÎÒÃÇ¿ÉÒÔÉ¾³ıalphaÍ¨µÀ¡£Òò´Ë£¬ ÖØÒª´ÓË÷ÒıÉ«ÖĞ»ñµÃRGB¼´¿É,Õâ¸öÖ÷ÒªÕë¶ÔGIFÍ¼Ïñ
+        // ç´¢å¼•è°ƒè‰²æ¿ï¼Œ æˆ‘ä»¬å¯ä»¥åˆ é™¤alphaé€šé“ã€‚å› æ­¤ï¼Œ é‡è¦ä»ç´¢å¼•è‰²ä¸­è·å¾—RGBå³å¯,è¿™ä¸ªä¸»è¦é’ˆå¯¹GIFå›¾åƒ
         if (cm instanceof IndexColorModel) {
             // Retrieve the IndexColorModel
             IndexColorModel icm = (IndexColorModel) src.getColorModel();
@@ -193,7 +193,7 @@ public class ImageColorConvertHelper {
 
     /**
      * <pre>
-     * ÎªÁË½µµÍ´æ´¢¿Õ¼ä£¬ Ã»ÓĞ±ØÒª±£³Öjpeg alphaÍ¨µÀ. Èç¹û
+     * ä¸ºäº†é™ä½å­˜å‚¨ç©ºé—´ï¼Œ æ²¡æœ‰å¿…è¦ä¿æŒjpeg alphaé€šé“. å¦‚æœ
      * see: http://www.faqs.org/faqs/jpeg-faq/part1/section-12.html
      * </pre>
      * 
@@ -203,7 +203,7 @@ public class ImageColorConvertHelper {
     public static PlanarImage convertRGBA2RGB(PlanarImage src) {
         ColorModel cm = src.getColorModel();
 
-        // RGB²¢ÇÒÎªËÄÍ¨µÀ£¬ É¾³ıµôalphaÍ¨µÀ
+        // RGBå¹¶ä¸”ä¸ºå››é€šé“ï¼Œ åˆ é™¤æ‰alphaé€šé“
         if (cm.getColorSpace().getType() == ColorSpace.TYPE_RGB && src.getNumBands() == 4) {
             if(!cm.getColorSpace().isCS_sRGB()) {
                 src = generalColorConvert(src);
@@ -230,7 +230,7 @@ public class ImageColorConvertHelper {
     }
 
     /**
-     * Õâ¸ö×ª»Ò¶ÈÍ¼ÏñÎªRGB£¬ÀûÓÃ¹«Ê½ r = gray, g = gray, b = gray À´×öµÄ×ª»»
+     * è¿™ä¸ªè½¬ç°åº¦å›¾åƒä¸ºRGBï¼Œåˆ©ç”¨å…¬å¼ r = gray, g = gray, b = gray æ¥åšçš„è½¬æ¢
      * 
      * @param src
      * @return

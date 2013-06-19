@@ -32,7 +32,7 @@ public class JAIRegisterHelper {
     }
 
     /**
-     * ÓÉÓÚLancsosOpImageÔİÊ±²»ÓÃ£¬¸Ã·½·¨Ò²ÔİÊ±²»ÓÃ
+     * ç”±äºLancsosOpImageæš‚æ—¶ä¸ç”¨ï¼Œè¯¥æ–¹æ³•ä¹Ÿæš‚æ—¶ä¸ç”¨
      */
     @SuppressWarnings("unused")
     private synchronized static void registerLanczosOperator() {

@@ -23,8 +23,8 @@ import com.alibaba.simpleimage.render.WriteParameter;
 import com.alibaba.simpleimage.render.WriteRender;
 
 /**
- * ÀàColorQuantPerfTest.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö 
- * @author wendell 2011-8-18 ÏÂÎç07:06:28
+ * ç±»ColorQuantPerfTest.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿° 
+ * @author wendell 2011-8-18 ä¸‹åˆ07:06:28
  */
 public class ColorQuantPerfTest {
 

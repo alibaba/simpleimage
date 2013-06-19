@@ -21,11 +21,11 @@ import java.awt.Graphics2D;
 
 
 /**
- * ÀàReleatePositionDrawTextItem.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö 
- * @author wendell 2011-3-28 ÏÂÎç01:43:45
+ * ç±»ReleatePositionDrawTextItem.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿° 
+ * @author wendell 2011-3-28 ä¸‹åˆ01:43:45
  */
 public class ReleatePositionDrawTextItem extends DrawTextItem {
-     // Ö÷ÒªµÄÎÄ±¾Õ¼Í¼Æ¬¿í¶ÈµÄ°Ù·Ö±È,±ÈÈç0.85,0.95
+     // ä¸»è¦çš„æ–‡æœ¬å å›¾ç‰‡å®½åº¦çš„ç™¾åˆ†æ¯”,æ¯”å¦‚0.85,0.95
      protected float textWidthPercent;
      
      protected float xFactor;
@@ -52,7 +52,7 @@ public class ReleatePositionDrawTextItem extends DrawTextItem {
     @Override
     public void drawText(Graphics2D graphics, int width, int height) {
         int textLength = (int) (width * textWidthPercent);
-        // ¼ÆËãË®Ó¡×ÖÌå´óĞ¡
+        // è®¡ç®—æ°´å°å­—ä½“å¤§å°
         int fontsize = textLength / text.length();
         if(fontsize < minFontSize) {
             return ;

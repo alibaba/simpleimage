@@ -38,8 +38,8 @@ import com.alibaba.simpleimage.render.ScaleParameter.Algorithm;
 import com.alibaba.simpleimage.util.ImageUtils;
 
 /**
- * ¸ÃÀàÄ¿Ç°Ö§³ÖÖĞÎÄÕ¾ÒµÎñ´¦ÀíÁ÷³Ì¡£ ¿ÉÒÔ¸ù¾İĞèÒª£¬ Ìí¼Ó²»Í¬µÄ´¦Àí·½°¸¡£
- * ¸ÃÀàÄ¿Ç°ÒÑ¾­·Åµ½ÖĞÎÄÕ¾Í¼Æ¬ÒøĞĞÎ¬»¤£¬ÕâÀï²»ÔÙÎ¬»¤ÁË
+ * è¯¥ç±»ç›®å‰æ”¯æŒä¸­æ–‡ç«™ä¸šåŠ¡å¤„ç†æµç¨‹ã€‚ å¯ä»¥æ ¹æ®éœ€è¦ï¼Œ æ·»åŠ ä¸åŒçš„å¤„ç†æ–¹æ¡ˆã€‚
+ * è¯¥ç±»ç›®å‰å·²ç»æ”¾åˆ°ä¸­æ–‡ç«™å›¾ç‰‡é“¶è¡Œç»´æŠ¤ï¼Œè¿™é‡Œä¸å†ç»´æŠ¤äº†
  * @author wendell
  */
 @Deprecated
@@ -64,13 +64,13 @@ public final class CompositeImageProcessor {
     }
 
     /**
-     * ¸ù¾İÊäÈëµÄÁ÷µÄ£¬ Íê³ÉĞ´Ë®Ó¡£¬ Ëõ·Å£¬ Ğ´Êä³öÁ÷¡£
+     * æ ¹æ®è¾“å…¥çš„æµçš„ï¼Œ å®Œæˆå†™æ°´å°ï¼Œ ç¼©æ”¾ï¼Œ å†™è¾“å‡ºæµã€‚
      * 
-     * @param is ÊäÈëÍ¼ÏñÁ÷£¬ ĞèÒªÖ÷¶¯¹Ø±Õ
-     * @param dp Ë®Ó¡²ÎÊı
-     * @param scaleParam Ëõ·Å²ÎÊı
-     * @param wjp Ğ´ÎÄ¼ş²ÎÊı
-     * @return Êä³öÍ¼ÏñÁ÷£¬ ĞèÒªÖ÷¶¯¹Ø±Õ. Èç¹ûÖĞ¼ä´¦Àí³ö´í£¬ Å×³öÒì³£;
+     * @param is è¾“å…¥å›¾åƒæµï¼Œ éœ€è¦ä¸»åŠ¨å…³é—­
+     * @param dp æ°´å°å‚æ•°
+     * @param scaleParam ç¼©æ”¾å‚æ•°
+     * @param wjp å†™æ–‡ä»¶å‚æ•°
+     * @return è¾“å‡ºå›¾åƒæµï¼Œ éœ€è¦ä¸»åŠ¨å…³é—­. å¦‚æœä¸­é—´å¤„ç†å‡ºé”™ï¼Œ æŠ›å‡ºå¼‚å¸¸;
      * @throws IOException
      * @throws IOException
      */
@@ -128,7 +128,7 @@ public final class CompositeImageProcessor {
                 return;
             }
 
-            // ´íÎóÎÄ¼ş¼Ğ¶¨Òå´æÔÚ£¬ ¼°Á÷Ö§³ÖÖØÖÃ(ÓĞĞ©Á÷²»Ö§³ÖÖØÖÃ)
+            // é”™è¯¯æ–‡ä»¶å¤¹å®šä¹‰å­˜åœ¨ï¼Œ åŠæµæ”¯æŒé‡ç½®(æœ‰äº›æµä¸æ”¯æŒé‡ç½®)
             if (errorPath.exists() && is.markSupported()) {
                 OutputStream os = null;
                 try {
@@ -152,7 +152,7 @@ public final class CompositeImageProcessor {
     }// end errorLog
 
     /**
-     * ¼ì²é´íÎóÍ¼Æ¬´æ·ÅÄ¿Â¼ÊÇ·ñ³¬³öÏŞ¶î£¬Èç¹û³¬³öÏŞ¶îÇÒ²»´æÔÚ¹ıÆÚÎÄ¼ş£¬Ôòreturn false²»ÔÊĞíĞ´ ·ñÔòreturn true£¬ÔÊĞí¼ÇÂ¼´íÎóÎÄ¼ş
+     * æ£€æŸ¥é”™è¯¯å›¾ç‰‡å­˜æ”¾ç›®å½•æ˜¯å¦è¶…å‡ºé™é¢ï¼Œå¦‚æœè¶…å‡ºé™é¢ä¸”ä¸å­˜åœ¨è¿‡æœŸæ–‡ä»¶ï¼Œåˆ™return falseä¸å…è®¸å†™ å¦åˆ™return trueï¼Œå…è®¸è®°å½•é”™è¯¯æ–‡ä»¶
      * 
      * @param errorPath
      * @return

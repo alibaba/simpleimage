@@ -34,9 +34,9 @@ public class PressureTester {
 
     File           sourceDir               = new File("./src/test/resources/conf.test/simpleimage");
 
-    // ¿ªÆôÏß³ÌÊı
+    // å¼€å¯çº¿ç¨‹æ•°
     int            threadsNum              = 2;
-    // ×Ü´¦ÀíÖ´ĞĞ´ÎÊı
+    // æ€»å¤„ç†æ‰§è¡Œæ¬¡æ•°
     AtomicLong     total                   = new AtomicLong(100L);
 
     CountDownLatch countDownLatch          = new CountDownLatch(threadsNum);

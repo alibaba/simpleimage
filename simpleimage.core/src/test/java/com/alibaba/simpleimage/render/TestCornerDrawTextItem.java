@@ -13,16 +13,16 @@ import junit.framework.TestCase;
 
 
 /**
- * ÀàTestCornerDrawTextItem.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö 
- * @author wendell 2011-3-28 ÏÂÎç03:48:35
+ * ç±»TestCornerDrawTextItem.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿° 
+ * @author wendell 2011-3-28 ä¸‹åˆ03:48:35
  */
 public class TestCornerDrawTextItem extends TestCase {
     public void testDefaultValue() {
-        CornerDrawTextItem item = new CornerDrawTextItem("°¢Àï°Í°Í");
-        assertEquals(item.getText(), "°¢Àï°Í°Í");
+        CornerDrawTextItem item = new CornerDrawTextItem("é˜¿é‡Œå·´å·´");
+        assertEquals(item.getText(), "é˜¿é‡Œå·´å·´");
         assertEquals(item.getTextWidthPercent(), 0.5f);
         String fontName = item.getFont().getFontName();
-        boolean ret = "·½ÕıºÚÌå_GBK".equalsIgnoreCase(fontName) || "FZHei-B01".equalsIgnoreCase(fontName);
+        boolean ret = "æ–¹æ­£é»‘ä½“_GBK".equalsIgnoreCase(fontName) || "FZHei-B01".equalsIgnoreCase(fontName);
         assertTrue(ret);
         assertEquals(item.getFontColor(), new Color(255, 255, 255, 115));
         assertEquals(item.getFontShadowColor(), new Color(170, 170, 170, 77));

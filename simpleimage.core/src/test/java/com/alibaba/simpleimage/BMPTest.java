@@ -11,8 +11,8 @@ import java.io.File;
 
 
 /**
- * ÀàBMPTest.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö 
- * @author wendell 2011-8-16 ÏÂÎç06:37:24
+ * ç±»BMPTest.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿° 
+ * @author wendell 2011-8-16 ä¸‹åˆ06:37:24
  */
 public class BMPTest extends BaseTest {
 

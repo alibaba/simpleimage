@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * ´ú±íÒ»¸öbyteÊý×é¡£
+ * ä»£è¡¨ä¸€ä¸ªbyteæ•°ç»„ã€‚
  * 
  * @author Michael Zhou
  * @author wendell

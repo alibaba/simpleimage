@@ -16,22 +16,22 @@
 package com.alibaba.simpleimage.render;
 
 /**
- * Ëõ·Å²ÎÊı¶¨Òå
+ * ç¼©æ”¾å‚æ•°å®šä¹‰
  * 
  * @author leon
  */
 public class ScaleParameter {
     /**
-     *×î´ó¿í¶ÈÏŞÖÆ
+     *æœ€å¤§å®½åº¦é™åˆ¶
      */
     private int       maxWidth  = 1024;
     /**
-     * ×î´ó¸ß¶ÈÏŞÖÆ
+     * æœ€å¤§é«˜åº¦é™åˆ¶
      */
     private int       maxHeight = 1024;
 
     /**
-     * ËõÂÔËã·¨Ñ¡Ôñ
+     * ç¼©ç•¥ç®—æ³•é€‰æ‹©
      */
     private Algorithm algorithm = Algorithm.AUTO;
 

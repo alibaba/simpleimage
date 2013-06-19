@@ -23,9 +23,9 @@ import java.awt.font.FontRenderContext;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * ÀàCornerDrawTextItem.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö
+ * ç±»CornerDrawTextItem.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿°
  * 
- * @author wendell 2011-3-28 ÏÂÎç02:29:15
+ * @author wendell 2011-3-28 ä¸‹åˆ02:29:15
  */
 public class CornerDrawTextItem extends FixDrawTextItem {
 
@@ -62,11 +62,11 @@ public class CornerDrawTextItem extends FixDrawTextItem {
         }
         
         int x = 0, y = 0;
-        // ¼ÆËãË®Ó¡ÎÄ×Ö×Ü³¤¶È
+        // è®¡ç®—æ°´å°æ–‡å­—æ€»é•¿åº¦
         int textLength = (int) (width * textWidthPercent);
-        // ¼ÆËãË®Ó¡×ÖÌå´óĞ¡
+        // è®¡ç®—æ°´å°å­—ä½“å¤§å°
         int fontsize = textLength / text.length();
-        // Ì«Ğ¡ÁË.....²»ÏÔÊ¾
+        // å¤ªå°äº†.....ä¸æ˜¾ç¤º
         if (fontsize < minFontSize) {
             return ;
         }
@@ -77,7 +77,7 @@ public class CornerDrawTextItem extends FixDrawTextItem {
         FontRenderContext context = graphics.getFontRenderContext();
         int sw = (int) font.getStringBounds(text, context).getWidth();
 
-        // ¼ÆËã×ÖÌåµÄ×ø±ê
+        // è®¡ç®—å­—ä½“çš„åæ ‡
         if (width > height) {
             y = height / 4;
         } else {

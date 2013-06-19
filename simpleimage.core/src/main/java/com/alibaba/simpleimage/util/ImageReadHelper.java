@@ -145,7 +145,7 @@ public class ImageReadHelper {
             wrap = ByteArraySeekableStreamWrap.wrapInputStream(input);
 
             /**
-             * ÀûÓÃJAI¶ÁÈ¡Ô´Í¼Æ¬
+             * åˆ©ç”¨JAIè¯»å–æºå›¾ç‰‡
              */
             ParameterBlock pb = new ParameterBlock();
             pb.add(wrap);

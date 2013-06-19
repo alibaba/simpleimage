@@ -20,9 +20,9 @@ import com.alibaba.simpleimage.render.WriteRender;
 import com.alibaba.simpleimage.util.NodeUtils;
 
 /**
- * ÀàImageCloneTest.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö
+ * ç±»ImageCloneTest.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿°
  * 
- * @author wendell 2012-3-12 ÏÂÎç4:17:53
+ * @author wendell 2012-3-12 ä¸‹åˆ4:17:53
  */
 public class ImageCloneTest extends BaseTest {
 

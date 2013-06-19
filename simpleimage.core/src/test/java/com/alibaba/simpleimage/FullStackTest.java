@@ -103,7 +103,7 @@ public class FullStackTest extends BaseTest {
     }
 
     public void testBandsError() throws Exception {
-        // ÕâÕÅÍ¼Æ¬×ª»»ÑÕÉ«¿Õ¼äÊ§°Ü£¬»á´Ó²ÊÉ«ÕÕÆ¬×ªÎªºÚ°×ÕÕÆ¬£¬Ô­ÒòÊÇJAIÈÏÎª¸ÃÍ¼Æ¬µÄColorSpaceµÄTYPEÎª»Ò¶È
+        // è¿™å¼ å›¾ç‰‡è½¬æ¢é¢œè‰²ç©ºé—´å¤±è´¥ï¼Œä¼šä»å½©è‰²ç…§ç‰‡è½¬ä¸ºé»‘ç™½ç…§ç‰‡ï¼ŒåŸå› æ˜¯JAIè®¤ä¸ºè¯¥å›¾ç‰‡çš„ColorSpaceçš„TYPEä¸ºç°åº¦
 //        doDrawScaleWrite("tiff", "input_256_matte.tiff", "input_256_matte-result.jpg");
         doDrawScaleWrite("tiff", "input_gray_8bit_matte.tiff",
                 "input_gray_8bit_matte-result.jpg");

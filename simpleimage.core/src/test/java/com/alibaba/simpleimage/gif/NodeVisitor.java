@@ -12,8 +12,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * ÀàNodeVisitor.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö 
- * @author wendell 2011-8-8 ÏÂÎç09:45:26
+ * ç±»NodeVisitor.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿° 
+ * @author wendell 2011-8-8 ä¸‹åˆ09:45:26
  */
 public class NodeVisitor {
 

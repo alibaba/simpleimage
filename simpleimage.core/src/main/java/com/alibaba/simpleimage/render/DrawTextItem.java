@@ -20,23 +20,23 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 /**
- * ÀàDrawTextItem.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö
+ * ç±»DrawTextItem.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿°
  * 
- * @author wendell 2011-3-28 ÏÂÎç01:33:53
+ * @author wendell 2011-3-28 ä¸‹åˆ01:33:53
  */
 public abstract class DrawTextItem {
 
     static final int MIN_FONT_SIZE = 10;
 
-    // ÎÄ±¾
+    // æ–‡æœ¬
     protected String text;
-    // ×ÖµÄÑÕÉ«,Ö÷Òª¼ÓµÄÎÄ±¾
+    // å­—çš„é¢œè‰²,ä¸»è¦åŠ çš„æ–‡æœ¬
     protected Color  fontColor;
-    // ÒõÓ°ÑÕÉ«
+    // é˜´å½±é¢œè‰²
     protected Color  fontShadowColor;
-    // ÎÄ±¾×ÖÌå
+    // æ–‡æœ¬å­—ä½“
     protected Font   defaultFont;
-    // ÏÔÊ¾ÎÄ×ÖµÄ×îĞ¡´óĞ¡£¬µÍÓÚÕâ¸ö´óĞ¡µÄÎÄ×Ö²»ÏÔÊ¾
+    // æ˜¾ç¤ºæ–‡å­—çš„æœ€å°å¤§å°ï¼Œä½äºè¿™ä¸ªå¤§å°çš„æ–‡å­—ä¸æ˜¾ç¤º
     protected int    minFontSize   = MIN_FONT_SIZE;
 
     /**

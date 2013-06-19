@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class WriteParameter {
     /**
-     * 用户定义的元数据
+     * 鐢ㄦ埛瀹氫箟鐨勫厓鏁版嵁
      */
     private Map<String, String> userMeta       = null;
     // Used by JPEG

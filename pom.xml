@@ -8,8 +8,8 @@
 	<packaging>pom</packaging>
 	<description>Pure Java Image library</description>
 	<properties>
-		<file_encoding>GBK</file_encoding>
-		<project.build.sourceEncoding>GBK</project.build.sourceEncoding>
+		<file_encoding>UTF-8</file_encoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<developers>

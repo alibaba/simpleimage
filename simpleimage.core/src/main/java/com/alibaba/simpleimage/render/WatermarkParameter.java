@@ -25,19 +25,19 @@ import com.alibaba.simpleimage.ImageWrapper;
 public class WatermarkParameter {
 
     /**
-     * Ë®Ó¡Í¼Æ¬
+     * æ°´å°å›¾ç‰‡
      */
     private ImageWrapper watermark;
     /**
-     * Í¸Ã÷¶È
+     * é€æ˜åº¦
      */
     private float        alpha = 1.0f;
     /**
-     * Ë®Ó¡µ½ºá×ø±ê
+     * æ°´å°åˆ°æ¨ªåæ ‡
      */
     private int          x     = 0;
     /**
-     * Ë®Ó¡µ½×İ×ø±ê
+     * æ°´å°åˆ°çºµåæ ‡
      */
     private int          y     = 0;
 

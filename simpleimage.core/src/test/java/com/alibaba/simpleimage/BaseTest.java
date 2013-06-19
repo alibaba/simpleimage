@@ -20,8 +20,8 @@ import com.alibaba.simpleimage.render.WriteRender;
 
 
 /**
- * ÀàBaseTest.javaµÄÊµÏÖÃèÊö£ºTODO ÀàÊµÏÖÃèÊö 
- * @author wendell 2011-8-17 ÏÂÎç04:18:21
+ * ç±»BaseTest.javaçš„å®ç°æè¿°ï¼šTODO ç±»å®ç°æè¿° 
+ * @author wendell 2011-8-17 ä¸‹åˆ04:18:21
  */
 public class BaseTest extends TestCase {
     public static File resultDir = new File("./src/test/resources/conf.test/simpleimage/result");
