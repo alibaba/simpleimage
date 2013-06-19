@@ -18,6 +18,11 @@
 			<name>wendell</name>
 			<email>wendellxoo@gmail.com</email>
 		</developer>
+		<developer>
+                        <id>axman</id>
+                        <name>axman wang</name>
+                        <email>iamaxman@hotmail.com</email>
+                </developer>
 	</developers>
 
 	<scm>
@@ -83,6 +88,7 @@
 
 	<modules>
 		<module>simpleimage.core</module>
+		<module>simpleimage.analyze</module>
 	</modules>
 
 </project>
