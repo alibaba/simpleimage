@@ -18,10 +18,10 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import com.alibaba.security.simpleimage.analyze.kdtree.KDTree;
 import com.alibaba.security.simpleimage.analyze.sift.ModifiableConst;
 import com.alibaba.security.simpleimage.analyze.sift.io.KeyPointInfoReader;
 import com.alibaba.security.simpleimage.analyze.sift.io.KeyPointListInfo;
-import com.alibaba.security.simpleimage.analyze.sift.kdtree.KDTree;
 import com.alibaba.security.simpleimage.analyze.sift.match.Match;
 import com.alibaba.security.simpleimage.analyze.sift.match.MatchKeys;
 import com.alibaba.security.simpleimage.analyze.sift.scala.KeyPointN;
