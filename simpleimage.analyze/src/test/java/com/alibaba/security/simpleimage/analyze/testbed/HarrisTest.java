@@ -1,4 +1,4 @@
-package com.alibaba.security.simpleimage.analyze.harris;
+package com.alibaba.security.simpleimage.analyze.testbed;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -12,6 +12,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import com.alibaba.security.simpleimage.analyze.harissurf.IntegralImage;
+import com.alibaba.security.simpleimage.analyze.harris.Corner;
+import com.alibaba.security.simpleimage.analyze.harris.HarrisFast;
 
 public class HarrisTest {
 
@@ -53,7 +55,7 @@ public class HarrisTest {
 		g2d.setColor(Color.GREEN);
 
 		for (Corner corner : hf.corners) {
-			g2d.fill(new Rectangle2D.Float(corner.x - 1, corner.y - 1, 2, 2));
+			g2d.fill(new Rectangle2D.Float(corner.getX() - 1, corner.getY() - 1, 2, 2));
 		}
 
 		g2d.dispose();
