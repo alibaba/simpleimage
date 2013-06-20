@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.security.simpleimage.analyze.harissurf.SURFInterestPointN;
-import com.alibaba.security.simpleimage.analyze.harris.kdtree.KDTree;
+import com.alibaba.security.simpleimage.analyze.kdtree.KDTree;
 import com.alibaba.security.simpleimage.analyze.sift.ModifiableConst;
 
 /**

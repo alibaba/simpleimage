@@ -8,8 +8,8 @@ package com.alibaba.security.simpleimage.analyze.sift;
  * into with Alibaba.com.
  */
 /**
- * 绫?Imaging.java????版?杩帮?TODO 绫诲??版?杩?
- * @author axman 2013-3-21 涓??9:49:06
+ *
+ * @author axman 2013-3-21 9:49:06
  */
 public interface IImaging {
     
@@ -17,13 +17,12 @@ public interface IImaging {
     public int getHeight();
     
     /**
-     * 灏哄?绌洪??????     * @param size
+     * @param size
      * @return
      */
     public double scaleWithin(int dim);
     
     /**
-     * 浠?PixelConverter???涓?釜ImageMap
      * @param converter
      * @return
      * @throws Exception 

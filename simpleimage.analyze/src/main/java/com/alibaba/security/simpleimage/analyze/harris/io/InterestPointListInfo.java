@@ -12,8 +12,8 @@ import java.util.List;
 import com.alibaba.security.simpleimage.analyze.harissurf.SURFInterestPoint;
 
 /**
- * 类InterestPointFileList.java的实现描述：TODO 类实现描述
- * 
+ * 类InterestPointFileList.java的实现描述：每张图片的SURFInterestPoint信息，用于缓存logo信息。其中width和height在比较的时候需要用到，maxSize为
+ * 该图片需要的最少匹配点数
  * @author axman 2013-5-20 上午9:55:51
  */
 public class InterestPointListInfo {

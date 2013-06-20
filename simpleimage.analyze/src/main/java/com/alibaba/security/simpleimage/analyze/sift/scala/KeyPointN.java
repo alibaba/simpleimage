@@ -9,7 +9,7 @@ package com.alibaba.security.simpleimage.analyze.sift.scala;
 
 import java.io.Serializable;
 
-import com.alibaba.security.simpleimage.analyze.sift.kdtree.IKDTreeDomain;
+import com.alibaba.security.simpleimage.analyze.kdtree.IKDTreeDomain;
 
 /**
  * 类KeyPointN.java的实现描述：TODO 类实现描述

@@ -9,7 +9,7 @@ package com.alibaba.security.simpleimage.analyze.harissurf;
 
 import java.io.Serializable;
 
-import com.alibaba.security.simpleimage.analyze.harris.kdtree.IKDTreeDomain;
+import com.alibaba.security.simpleimage.analyze.kdtree.IKDTreeDomain;
 
 /**
  * 类SURFInterestPointN.java的实现描述：TODO 类实现描述

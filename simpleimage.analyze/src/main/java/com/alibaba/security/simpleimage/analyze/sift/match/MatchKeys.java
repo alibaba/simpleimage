@@ -13,8 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.security.simpleimage.analyze.kdtree.KDTree;
 import com.alibaba.security.simpleimage.analyze.sift.ModifiableConst;
-import com.alibaba.security.simpleimage.analyze.sift.kdtree.KDTree;
 import com.alibaba.security.simpleimage.analyze.sift.scala.KeyPointN;
 
 /**
