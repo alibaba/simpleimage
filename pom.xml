@@ -4,7 +4,7 @@
 	<groupId>com.alibaba</groupId>
 	<artifactId>simpleimage.parent</artifactId>
 	<version>1.1.9</version>
-	<name>simple image</name>
+	<name>simpleimage.parent</name>
 	<packaging>pom</packaging>
 	<description>Pure Java Image library</description>
 	<properties>
@@ -19,27 +19,16 @@
 			<email>wendellxoo@gmail.com</email>
 		</developer>
 		<developer>
-                        <id>axman</id>
+                       <id>axman</id>
                         <name>axman wang</name>
                         <email>iamaxman@hotmail.com</email>
                 </developer>
 	</developers>
 
 	<scm>
-		<url>https://wendellxoo@github.com/AlibabaTech/simpleimage.git</url>
-		<connection>scm:git:https://wendellxoo@github.com/AlibabaTech/simpleimage.git</connection>
+		<url>https://wendellxoo@github.com/alibaba/simpleimage.git</url>
+		<connection>scm:git:https://wendellxoo@github.com/alibaba/simpleimage.git</connection>
 	</scm>
-
-	<distributionManagement>
-		<repository>
-			<id>opensesame</id>
-			<url>dav:http://code.alibabatech.com/mvn/releases/</url>
-		</repository>
-		<snapshotRepository>
-			<id>opensesame</id>
-			<url>dav:http://code.alibabatech.com/mvn/snapshots/</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 	<organization>
 		<name>Alibaba Group</name>
@@ -55,7 +44,6 @@
 		</license>
 	</licenses>
 
-
 	<build>
 		<extensions>
 			<extension>
@@ -65,6 +53,19 @@
 			</extension>
 		</extensions>
 		<plugins>
+                        <plugin>
+                                <artifactId>maven-source-plugin</artifactId>
+                                <version>2.0.4</version>
+                                <executions>
+                                        <execution>
+                                                <id>attach-sources</id>
+                                                <goals>
+							<goal>jar</goal>
+						</goals>
+                                        </execution>
+                                </executions>
+                        </plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -83,12 +84,21 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
 	<modules>
 		<module>simpleimage.core</module>
 		<module>simpleimage.analyze</module>
+		<module>simpleimage</module>
 	</modules>
 
 </project>
