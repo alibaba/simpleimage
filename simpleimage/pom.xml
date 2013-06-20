@@ -7,12 +7,46 @@
 	<version>1.1.9</version>
 	<packaging>jar</packaging>
 	<description>package all simpleimage modules into one jar</description>
+	<url>http://code.alibabatech.com/wiki/display/SIMPLEIMAGE/Overview</url>
+	<inceptionYear>2012</inceptionYear>
 
         <properties>
                 <file_encoding>UTF-8</file_encoding>
                 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         </properties>
 
+        <developers>
+                <developer>
+                        <id>wendellxoo</id>
+                        <name>wendell</name>
+                        <email>wendellxoo@gmail.com</email>
+                </developer>
+                <developer>
+                       <id>axman</id>
+                        <name>axman wang</name>
+                        <email>iamaxman@hotmail.com</email>
+                </developer>
+        </developers>
+
+        <scm>
+                <url>https://wendellxoo@github.com/alibaba/simpleimage.git</url>
+                <connection>scm:git:https://wendellxoo@github.com/alibaba/simpleimage.git</connection>
+		<developerConnection>scm:git:https://wendellxoo@github.com/alibaba/simpleimage.git</developerConnection>
+        </scm>
+
+        <organization>
+                <name>Alibaba Group</name>
+                <url>http://code.alibabatech.com/</url>
+        </organization>
+
+        <licenses>
+                <license>
+                        <name>Apache 2</name>
+                        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+                        <distribution>repo</distribution>
+                        <comments>A business-friendly OSS license</comments>
+                </license>
+        </licenses>
 
 	<distributionManagement>
     		<repository>

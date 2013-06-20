@@ -12,38 +12,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-	<developers>
-		<developer>
-			<id>wendellxoo</id>
-			<name>wendell</name>
-			<email>wendellxoo@gmail.com</email>
-		</developer>
-		<developer>
-                       <id>axman</id>
-                        <name>axman wang</name>
-                        <email>iamaxman@hotmail.com</email>
-                </developer>
-	</developers>
-
-	<scm>
-		<url>https://wendellxoo@github.com/alibaba/simpleimage.git</url>
-		<connection>scm:git:https://wendellxoo@github.com/alibaba/simpleimage.git</connection>
-	</scm>
-
-	<organization>
-		<name>Alibaba Group</name>
-		<url>http://code.alibabatech.com/</url>
-	</organization>
-
-	<licenses>
-		<license>
-			<name>Apache 2</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-			<comments>A business-friendly OSS license</comments>
-		</license>
-	</licenses>
-
 	<build>
 		<extensions>
 			<extension>
