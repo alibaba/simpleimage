@@ -31,7 +31,12 @@ import com.alibaba.security.simpleimage.analyze.harissurf.SURFInterestPointN;
 import com.alibaba.security.simpleimage.analyze.harris.io.InterestPointNListInfo;
 import com.alibaba.security.simpleimage.analyze.harris.match.SurfMatch;
 import com.alibaba.security.simpleimage.analyze.harris.match.SurfMatchPoints;
+import com.alibaba.security.simpleimage.analyze.sift.IImaging;
+import com.alibaba.security.simpleimage.analyze.sift.ImageMap;
 import com.alibaba.security.simpleimage.analyze.sift.ModifiableConst;
+import com.alibaba.security.simpleimage.analyze.sift.detect.LoweFeatureDetector;
+import com.alibaba.security.simpleimage.analyze.sift.draw.DisplayImage;
+import com.alibaba.security.simpleimage.analyze.sift.scala.KeyPointN;
 
 public class Main {
 
@@ -95,46 +100,15 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        BufferedImage bil = ImageIO.read(new File("/Users/axman/Downloads/logo/img/taobao_login_des_1.png"));
 
-        HarrisSurf tempalte_hs = new HarrisSurf(bil);
-        tempalte_hs.getDescriptions(tempalte_hs.detectInterestPoints(), true);
-        List<SURFInterestPoint> logo = tempalte_hs.getInterestPoints();
-
-        List<SURFInterestPointN> logoN = tempalte_hs.getGlobalNaturalInterestPoints();
-
-        BufferedImage bim = ImageIO.read(new File("/Users/axman/Downloads/model/image/51242944.png"));
-        HarrisSurf model_hs = new HarrisSurf(bim);
-        model_hs.getDescriptions(model_hs.detectInterestPoints(), true);
-        List<SURFInterestPoint> model = model_hs.getInterestPoints();
-
-        List<SURFInterestPointN> modelN = model_hs.getGlobalNaturalInterestPoints();
-
-        Map<SURFInterestPoint, SURFInterestPoint> matchMap = HarrisSurf.match(logo, model);
-        System.out.println(matchMap.size());
-        drawImage(bil, bim, "/Users/axman/Downloads/mapall.jpg", matchMap);
-
-        HarrisSurf.geometricFilter(matchMap, bil.getWidth(), bil.getHeight());
-        System.out.println(matchMap.size());
-        drawImage(bil, bim, "/Users/axman/Downloads/mapf1.jpg", matchMap);
-
-        HarrisSurf.joinsFilter(matchMap);
-        System.out.println(matchMap.size());
-        drawImage(bil, bim, "/Users/axman/Downloads/mapf2.jpg", matchMap);
-
-        List<SurfMatch> ms = SurfMatchPoints.findMatchesBBF(logoN, modelN);
-
-        System.out.println(ms.size());
-        drawImage(bil, bim, "/Users/axman/Downloads/listall.jpg", ms);
-
-        ms = SurfMatchPoints.filterFarMatchL(ms, bil.getWidth(), bil.getHeight());
-        System.out.println(ms.size());
-        drawImage(bil, bim, "/Users/axman/Downloads/listf1.jpg", ms);
-
-        ms = SurfMatchPoints.filterJoins(ms);
-        System.out.println(ms.size());
-        drawImage(bil, bim, "/Users/axman/Downloads/listf2.jpg", ms);
-
+        BufferedImage bim = ImageIO.read(new File("/Users/axman/Downloads/snapshot.png"));
+        IImaging dimg = new DisplayImage(bim);
+        ImageMap picMap = dimg.toImageMap(null);
+        LoweFeatureDetector lf = new LoweFeatureDetector();
+        lf.detectFeatures(picMap);
+        List<KeyPointN> al = lf.getGlobalNaturalKeypoints();
+        
+        
     }
 
     static class TestImgSurf extends Thread {

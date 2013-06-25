@@ -15,8 +15,9 @@ import com.alibaba.security.simpleimage.analyze.sift.conv.GaussianConvolution;
 import com.alibaba.security.simpleimage.analyze.sift.matrix.SimpleMatrix;
 
 /**
- * 类DScaleSpace.java的实现描述：TODO 类实现描述
- * 
+ * 类DScaleSpace.java的实现描述：在8度金字塔上的第一层会再用不同的模糊因子进行多层高斯模糊，这些多层的模糊后的图片数据属于塔上的某一层的。
+ * 所以需要一个数据结构表示8度金字塔上某一层的再次高斯模拟处理的多层图象。
+ *
  * @author axman 2013-3-25 上午11:12:20
  */
 public class DScaleSpace {
@@ -45,10 +46,10 @@ public class DScaleSpace {
         this.up = up;
     }
 
-    ImageMap   baseImg;
-    double     basePixScale;
+    ImageMap   baseImg;  //塔中的某层图象
+    double     basePixScale;//塔中的scale
 
-    ImageMap[] imgScaled;
+    ImageMap[] imgScaled; //塔中某层被再次用不同模糊因子模糊后的图象数据
 
     public ImageMap getGaussianMap(int idx) {
         return this.imgScaled[idx];
@@ -64,7 +65,7 @@ public class DScaleSpace {
         return (this.imgScaled[this.imgScaled.length - 2]);
     }
 
-    public ImageMap[] spaces;
+    public ImageMap[] spaces; //diff以后的数组
 
     public int getCount() {
         return this.spaces.length;
@@ -710,6 +711,7 @@ public class DScaleSpace {
         }
     }
 
+    //在每一层上再用不同的模糊因子构造更多层的高期模糊图层,金字塔是不同尺寸的模糊，这里是不同模糊因子的模糊但是尺寸是相同的。
     public void buildGaussianMaps(ImageMap first, double firstScale, int scales, double sigma) {
         // We need one more gaussian blurred image than the number of DoG
         // maps. But for the minima/maxima pixel search, we need two more. See
@@ -727,6 +729,7 @@ public class DScaleSpace {
             prev = imgScaled[scI] = gauss.convolve(prev);
             w *= SToK(scales);
         }
+        
     }
 
     static public double SToK(int s) {
@@ -734,9 +737,7 @@ public class DScaleSpace {
     }
 
     private SimpleMatrix getAdjustment(ScalePoint point, int level, int x, int y, RefDouble ref) {
-        /*
-         * Console.WriteLine ("GetAdjustment (point, {0}, {1}, {2}, out double dp)", level, x, y);
-         */
+
         ref.val = 0.0;
         if (point.level <= 0 || point.level >= (spaces.length - 1)) throw (new IllegalArgumentException(
                                                                                                         "point.Level is not within [bottom-1;top-1] range"));
@@ -745,16 +746,16 @@ public class DScaleSpace {
         ImageMap current = spaces[level];
         ImageMap above = spaces[level + 1];
 
-        SimpleMatrix H = new SimpleMatrix(3, 3);
+        SimpleMatrix h = new SimpleMatrix(3, 3);
         /*
          * 下面是该幅图像尺度空间的三元偏导数，记住是尺度空间上 的二阶自变量为3的偏导数2006.3.1
          */
-        H.values[0][0] = below.valArr[y][x] - 2 * current.valArr[y][x] + above.valArr[y][x];
-        H.values[0][1] = H.values[1][0] = 0.25 * (above.valArr[y + 1][x] - above.valArr[y - 1][x] - (below.valArr[y + 1][x] - below.valArr[y - 1][x]));
-        H.values[0][2] = H.values[2][0] = 0.25 * (above.valArr[y][x + 1] - above.valArr[y][x - 1] - (below.valArr[y][x + 1] - below.valArr[y][x - 1]));
-        H.values[1][1] = current.valArr[y - 1][x] - 2 * current.valArr[y][x] + current.valArr[y + 1][x];
-        H.values[1][2] = H.values[2][1] = 0.25 * (current.valArr[y + 1][x + 1] - current.valArr[y + 1][x - 1] - (current.valArr[y - 1][x + 1] - current.valArr[y - 1][x - 1]));
-        H.values[2][2] = current.valArr[y][x - 1] - 2 * current.valArr[y][x] + current.valArr[y][x + 1];
+        h.values[0][0] = below.valArr[y][x] - 2 * current.valArr[y][x] + above.valArr[y][x];
+        h.values[0][1] = h.values[1][0] = 0.25 * (above.valArr[y + 1][x] - above.valArr[y - 1][x] - (below.valArr[y + 1][x] - below.valArr[y - 1][x]));
+        h.values[0][2] = h.values[2][0] = 0.25 * (above.valArr[y][x + 1] - above.valArr[y][x - 1] - (below.valArr[y][x + 1] - below.valArr[y][x - 1]));
+        h.values[1][1] = current.valArr[y - 1][x] - 2 * current.valArr[y][x] + current.valArr[y + 1][x];
+        h.values[1][2] = h.values[2][1] = 0.25 * (current.valArr[y + 1][x + 1] - current.valArr[y + 1][x - 1] - (current.valArr[y - 1][x + 1] - current.valArr[y - 1][x - 1]));
+        h.values[2][2] = current.valArr[y][x - 1] - 2 * current.valArr[y][x] + current.valArr[y][x + 1];
 
         SimpleMatrix d = new SimpleMatrix(3, 1);
         /*
@@ -767,13 +768,13 @@ public class DScaleSpace {
         SimpleMatrix b = (SimpleMatrix) d.clone();
         b.negate();
         // Solve: A x = b
-        H.solveLinear(b);
+        h.solveLinear(b);
         ref.val = b.dot(d);
         return (b);
     }
 
     private boolean isTooEdgelike(ImageMap space, int x, int y, double r) {
-        double D_xx, D_yy, D_xy;
+        double d_xx, d_yy, d_xy;
 
         // Calculate the Hessian H elements [ D_xx, D_xy ; D_xy , D_yy ]
         /*
@@ -782,20 +783,20 @@ public class DScaleSpace {
          * d_f(x,y+1) = (f(x+1,y+1) - f(x-1,y+1)) * 0.5; 1 d_f(x,y-1) = (f(x+1,y-1) - f(x-1,y-1)) * 0.5; 2 将1，2代入 0 式
          * (f(x+1,y+1)+f(x+1,y-1)-f(x-1,y+1)-f(x-1,y-1)) * 0.25
          */
-        D_xx = space.valArr[y + 1][x] + space.valArr[y - 1][x] - 2.0 * space.valArr[y][x];
-        D_yy = space.valArr[y][x + 1] + space.valArr[y][x - 1] - 2.0 * space.valArr[y][x];
-        D_xy = 0.25 * ((space.valArr[y + 1][x + 1] - space.valArr[y + 1][x - 1]) - (space.valArr[y - 1][x + 1] - space.valArr[y - 1][x - 1]));
+        d_xx = space.valArr[y + 1][x] + space.valArr[y - 1][x] - 2.0 * space.valArr[y][x];
+        d_yy = space.valArr[y][x + 1] + space.valArr[y][x - 1] - 2.0 * space.valArr[y][x];
+        d_xy = 0.25 * ((space.valArr[y + 1][x + 1] - space.valArr[y + 1][x - 1]) - (space.valArr[y - 1][x + 1] - space.valArr[y - 1][x - 1]));
 
         // page 13 in Lowe's paper
-        double TrHsq = D_xx + D_yy;
-        TrHsq *= TrHsq;
-        double DetH = D_xx * D_yy - (D_xy * D_xy);
+        double trHsq = d_xx + d_yy;
+        trHsq *= trHsq;
+        double detH = d_xx * d_yy - (d_xy * d_xy);
 
         double r1sq = (r + 1.0);
         r1sq *= r1sq;
 
         // BUG: this can invert < to >, uhh: if ((TrHsq * r) < (DetH * r1sq))
-        if ((TrHsq / DetH) < (r1sq / r)) {
+        if ((trHsq / detH) < (r1sq / r)) {
             /*
              * Console.WriteLine ("{0} {1} {2} {3} {4} # EDGETEST", y, x, (TrHsq * r), (DetH * r1sq), (TrHsq / DetH) /
              * (r1sq / r));

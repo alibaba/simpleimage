@@ -143,11 +143,12 @@ public class LoweFeatureDetector {
         // (Lowe03, p10, "We assume that the original image has a blur of at
         // least \sigma = 0.5 ...")
         // So, do one initial image smoothing pass.
+        
+        //先用指定的参数进行高斯卷积模糊预处理
         if (preprocSigma > 0.0) {
             GaussianConvolution gaussianPre = new GaussianConvolution(preprocSigma);
             img = gaussianPre.convolve(img);
         }
-
         pyr = new OctavePyramid();
         pyr.setVerbose(verbose);
         pyr.buildOctaves(img, startScale, scaleSpaceLevels, octaveSigma, minimumRequiredPixelsize);

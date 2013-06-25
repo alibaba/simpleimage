@@ -22,7 +22,7 @@ import com.alibaba.security.simpleimage.analyze.sift.IPixelConverter;
 import com.alibaba.security.simpleimage.analyze.sift.ImageMap;
 
 /**
- * 类DisplayImage.java的实现描述：TODO 类实现描述
+ * 类DisplayImage.java的实现描述：
  * 
  * @author axman 2013-3-21 下午3:29:34
  */

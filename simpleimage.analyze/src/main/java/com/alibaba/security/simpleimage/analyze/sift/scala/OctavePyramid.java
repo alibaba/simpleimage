@@ -12,46 +12,51 @@ import java.util.ArrayList;
 import com.alibaba.security.simpleimage.analyze.sift.ImageMap;
 
 /**
- * 类OctavePyramid.java的实现描述：TODO 类实现描述
+ * 类OctavePyramid.java的实现描述：构建8度金字塔，提取不同尺度空间上稳定的极值点
  * 
  * @author axman 2013-3-25 上午11:08:38
  */
 public class OctavePyramid {
 
-    boolean                       verbose = System.getProperty("_verbose") == null ? false : true;
-    public ArrayList<DScaleSpace> octaves;
+	boolean verbose = System.getProperty("_verbose") == null ? false : true;
+	public ArrayList<DScaleSpace> octaves;
 
-    public void setVerbose(boolean verbose) {
-        this.verbose = verbose;
-    }
+	public void setVerbose(boolean verbose) {
+		this.verbose = verbose;
+	}
 
-    public int count() {
-        return this.octaves.size();
-    }
+	public int count() {
+		if (octaves == null)
+			return 0;
+		return this.octaves.size();
+	}
 
-    public int buildOctaves(ImageMap source, double scale, int levelsPerOctave, double octaveSigm, int minSize) {
-        this.octaves = new ArrayList<DScaleSpace>();
-        DScaleSpace downSpace = null;
-        ImageMap prev = source;
+	public int buildOctaves(ImageMap source, double scale, int levelsPerOctave,
+			double octaveSigm, int minSize) {
+		this.octaves = new ArrayList<DScaleSpace>();
+		DScaleSpace downSpace = null;
+		ImageMap prev = source;
 
-        while (prev != null && prev.xDim >= minSize && prev.yDim >= minSize) {
-            DScaleSpace dsp = new DScaleSpace();
-            dsp.verbose = verbose;
+		while (prev != null && prev.xDim >= minSize && prev.yDim >= minSize) {
+			DScaleSpace dsp = new DScaleSpace();
+			dsp.verbose = verbose;
 
-            if (verbose) System.out.printf("Building octave, (%d, %d)\r\n", prev.xDim, prev.yDim);
+			if (verbose)
+				System.out.printf("Building octave, (%d, %d)\r\n", prev.xDim,
+						prev.yDim);
 
-            // Create both the gaussian filtered images and the DoG maps
-            dsp.buildGaussianMaps(prev, scale, levelsPerOctave, octaveSigm);
-            dsp.buildDiffMaps();
-            octaves.add(dsp);
-            prev = dsp.getLastGaussianMap().scaleHalf();
-
-            if (downSpace != null) downSpace.up = dsp;
-            dsp.down = downSpace;
-            downSpace = dsp;
-            scale *= 2.0;
-        }
-        return (octaves.size());
-    }
+			// Create both the gaussian filtered images and the DoG maps
+			dsp.buildGaussianMaps(prev, scale, levelsPerOctave, octaveSigm);
+			dsp.buildDiffMaps();
+			octaves.add(dsp);
+			prev = dsp.getLastGaussianMap().scaleHalf();
+			if (downSpace != null)
+				downSpace.up = dsp;
+			dsp.down = downSpace;
+			downSpace = dsp;
+			scale *= 2.0;
+		}
+		return (octaves.size());
+	}
 
 }
