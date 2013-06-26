@@ -1,0 +1,184 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.alibaba</groupId>
+	<artifactId>simpleimage</artifactId>
+	<name>simpleimage</name>
+	<version>1.1.9</version>
+	<packaging>jar</packaging>
+	<description>package all simpleimage modules into one jar</description>
+	<url>http://code.alibabatech.com/wiki/display/SIMPLEIMAGE/Overview</url>
+	<inceptionYear>2012</inceptionYear>
+
+        <properties>
+                <file_encoding>UTF-8</file_encoding>
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        </properties>
+
+        <developers>
+                <developer>
+                        <id>wendellxoo</id>
+                        <name>wendell</name>
+                        <email>wendellxoo@gmail.com</email>
+                </developer>
+                <developer>
+                       <id>axman</id>
+                        <name>axman wang</name>
+                        <email>iamaxman@hotmail.com</email>
+                </developer>
+        </developers>
+
+        <scm>
+                <url>https://wendellxoo@github.com/alibaba/simpleimage.git</url>
+                <connection>scm:git:https://wendellxoo@github.com/alibaba/simpleimage.git</connection>
+		<developerConnection>scm:git:https://wendellxoo@github.com/alibaba/simpleimage.git</developerConnection>
+        </scm>
+
+        <organization>
+                <name>Alibaba Group</name>
+                <url>http://code.alibabatech.com/</url>
+        </organization>
+
+        <licenses>
+                <license>
+                        <name>Apache 2</name>
+                        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+                        <distribution>repo</distribution>
+                        <comments>A business-friendly OSS license</comments>
+                </license>
+        </licenses>
+
+	<distributionManagement>
+    		<repository>
+      			<id>sonatype-nexus-staging</id>
+      			<name>Nexus Release Repository</name>
+      			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    		</repository>
+    		<snapshotRepository>
+      			<id>sonatype-nexus-snapshots</id>
+      			<name>Sonatype Nexus Snapshots</name>
+      			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    		</snapshotRepository>
+  	</distributionManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>simpleimage.core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>simpleimage.analyze</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+                <extensions>
+                        <extension>
+                                <groupId>org.apache.maven.wagon</groupId>
+                                <artifactId>wagon-webdav</artifactId>
+                                <version>1.0-beta-2</version>
+                        </extension>
+                </extensions>
+		<plugins>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.0.4</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+                        <plugin>
+                                <groupId>org.apache.maven.plugins</groupId>
+                                <artifactId>maven-compiler-plugin</artifactId>
+                                <version>2.3.1</version>
+                                <configuration>
+                                        <optimize>true</optimize>
+                                        <encoding>UTF-8</encoding>
+                                        <source>1.5</source>
+                                        <target>1.5</target>
+                                </configuration>
+                                <dependencies>
+                                        <dependency>
+                                                <groupId>org.codehaus.plexus</groupId>
+                                                <artifactId>plexus-compiler-javac</artifactId>
+                                                <version>1.8.1-patch</version>
+                                        </dependency>
+                                </dependencies>
+                        </plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<id>attach-javadoc</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<show>public</show>
+					<charset>UTF-8</charset>
+					<encoding>UTF-8</encoding>
+					<docencoding>UTF-8</docencoding>
+					<links>
+						<link>http://docs.oracle.com/javase/6/docs/api</link>
+					</links>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<createSourcesJar>true</createSourcesJar>
+							<promoteTransitiveDependencies>true</promoteTransitiveDependencies>
+							<artifactSet>
+								<includes>
+									<include>com.alibaba:simpleimage.core</include>
+									<include>com.alibaba:simpleimage.analyze</include>
+								</includes>
+							</artifactSet>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>released internal lib</name>
+			<url>http://repo2.maven.org/maven2/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+</project>
+
