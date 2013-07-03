@@ -4,7 +4,7 @@
 	<groupId>com.alibaba</groupId>
 	<artifactId>simpleimage</artifactId>
 	<name>simpleimage</name>
-	<version>1.1.9</version>
+	<version>1.2.0</version>
 	<packaging>jar</packaging>
 	<description>package all simpleimage modules into one jar</description>
 	<url>http://code.alibabatech.com/wiki/display/SIMPLEIMAGE/Overview</url>
