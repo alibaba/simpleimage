@@ -15,30 +15,32 @@ import com.alibaba.simpleimage.analyze.sift.ImagePixelArray;
 import com.alibaba.simpleimage.analyze.sift.scale.ScalePeak.LocalInfo;
 
 /**
- * 绫籓ctave.java鐨勫疄鐜版弿杩帮細琛ㄧず8搴﹂噾瀛楀涓殑涓�涓�︼紝鍗充互灏哄涓哄潗鏍囩殑鏌愪竴灏哄涓婄殑閭ｄ釜8搴�
+ * 类Octave.java的实现描述：表示8度金字塔中的一个8度空间，即以尺寸为坐标的某一尺寸上的那个8度空间
  * 
- * @author axman 2013-6-27 涓婂崍11:30:08
+ * @author axman 2013-6-27 上午11:30:08
  */
 public class OctaveSpace {
 
-    OctaveSpace               down;        // down鎸囩殑鏄互灏哄涓哄潗鏍囩殑涓婁竴灞傦紝涓嶆槸褰撳墠8搴︾┖闂寸殑涓嶅悓楂樻柉妯＄硦鍥剧墖鐨勬煇涓�灞�
+    OctaveSpace               down;        // down指的是下一个8度空间
     OctaveSpace               up;
-    ImagePixelArray           baseImg;     // 褰撳墠8搴︾┖闂寸殑鍘熷鍥剧墖锛岀敱涓�︾┖闂寸殑鏌愬眰锛堥粯璁ゅ�掓暟绗笁灞傦級鑾峰彇
-    public float              baseScale;   // 褰撳墠8搴﹀闂村湪濉斾腑鐨勫師濮嬪昂搴�
-    public ImagePixelArray[]  smoothedImgs; // 鐢ㄤ笉鍚屾ā绯婂洜瀛愭ā绯婂悗鐨勫浘璞￠泦鍚�
-    public ImagePixelArray[]  diffImags;   // 宸垎鍥鹃泦
+    ImagePixelArray           baseImg;     // 当前8度空间的原始图片，由上一个8度空间的某层（默认为倒数第三层）获取
+    public float              baseScale;   // 原始图片在塔中的原始尺度
+    public ImagePixelArray[]  smoothedImgs; // 同一尺寸用不同模糊因子模糊后的高斯图像集
+    public ImagePixelArray[]  diffImags;   // 由smoothedImgs得到的差分图集
 
     private ImagePixelArray[] magnitudes;
     private ImagePixelArray[] directions;
 
     /**
-     * @return 杩斿洖涓嬩竴涓�︾┖闂寸殑鍘熷鍩哄噯鍥捐薄 @see page5 of "Distinctive Image Features from Scale-Invariant featurePoints" (David G.
-     * Lowe @January 5, 2004) 楂樻柉鍑芥暟G瀵瑰浘鍍廔鐨勬ā绯婂嚱鏁�L(x,y,蟽) = G(x,y,蟽) 鈭� I(x,y) 楂樻柉宸垎鍑芥暟:D(x,y,蟽) = (G(x,y,k蟽)鈭扜(x,y,蟽))鈭桰(x,y)
-     * = L(x,y,k蟽) 鈭� L(x,y,蟽) 瀵逛簬scales骞呭浘璞′骇鐢熻繛缁昂搴︼紝鎺ㄥ鍑� k = 2 ^ (1/s)锛岃鏂囦腑榛樿 scales涓�屾墍浠ユ�诲叡鏈�呭浘鐗囷紝瀹冧滑鐨勫昂搴﹀簲璇ヤ负
-     * 1蟽锛�26蟽锛�59蟽锛�0蟽锛�52蟽锛�17蟽
-     * 鍊掓暟绗笁骞呮濂藉彂鐢熶竴涓�嶇殑閫掕繘锛屾妸瀹冧綔涓轰笅涓�涓�︾┖闂寸殑绗竴骞呭浘鐗囷紝姝ｅソ淇濊瘉宸垎閲戝瓧濉旂殑灏哄害绌洪棿鐨勮繛缁�э紝鍏跺疄瀵逛簬浠讳箟scales,length-2涓哄浐瀹氱殑浣嶇疆锛屽洜涓烘�婚暱搴︿负s+3,鍓嶉潰鍘绘帀涓�涓師濮嬪浘鐗囷紝
-     * 鍙湁length-2鐨勬椂鍊� k = 2 ^ (s/s)鎵嶆濂借儗鏃�嶃��
+     * @return 返回下一8度空间的原始基准图象
+     * @see page5 of "Distinctive Image Features from Scale-Invariant featurePoints" (David G.Lowe @January 5, 2004)
      */
+     // 高斯函数G对图像I的模糊函数 L(x,y,σ) = G(x,y,σ) * I(x,y) 
+     // 高斯差分函数:D(x,y,σ) = (G(x,y,kσ)−G(x,y,σ)) * I(x,y) = L(x,y,kσ) 
+     // L(x,y,σ) 对于scales幅图象产生连续尺度，推导 k = 2 ^ (1/s)，论文中默认 scales为3所以一共6幅图像，它们的尺度应该为
+     // 1σ,1.26σ,1.59σ,2.0σ,2.52σ,3.17σ
+     // 倒数第三幅正好发生一个二倍的阶跃，把它作为下一个8度空间的第一幅图片，保证差分金字塔的尺度空间的连续性，其实对于任义scales,length-2为固定的位置，
+     // 因为smoothedImgs长度为s+3,前面去掉1个原始图片，只有length-2的时 k = 2 ^ (s/s)才正好是一个2倍的阶跃
     public ImagePixelArray getLastGaussianImg() {
         if (this.smoothedImgs.length < 2) {
             throw new java.lang.IllegalArgumentException("err: too few gaussian maps.");
@@ -47,7 +49,7 @@ public class OctaveSpace {
     }
 
     /**
-     * 鍦ㄤ竴涓�︾┖闂寸敤涓嶅悓鐨勬ā绯婂洜瀛愭瀯閫犳洿澶氬眰鐨勯珮鏈熸ā绯婂浘灞�,杩欓噷鏄笉鍚屾ā绯婂洜瀛愮殑妯＄硦浣嗘槸灏哄鏄浉鍚岀殑銆�
+     * 在一个8空间用不同的模糊因子构造更多层的高期模糊图像集,这里是不同模糊因子的模糊但是尺寸是相同的
      * 
      * @param first
      * @param firstScale
@@ -56,10 +58,10 @@ public class OctaveSpace {
      */
     public void makeGaussianImgs(ImagePixelArray base, float baseScale, int scales, float sigma) {
 
-        // 瀵逛簬DOG(宸垎鍥�)鎴戜滑闇�瑕佷竴寮犱互涓婄殑鍥剧墖鎵嶈兘鐢熸垚宸垎鍥撅紝浣嗘槸鏌ユ壘鏋佸�肩偣闇�瑕佺悊澶氬樊鍒嗗浘銆傝buildDiffMaps
+        // 对于DOG(差分图像集)我们需要一张以上的图片才能生成差分图，但是查找极值点更多要差分图。见buildDiffMaps
         smoothedImgs = new ImagePixelArray[scales + 3];
-        // 姣忎竴涓瀬鍊肩偣鏄湪涓夌淮绌洪棿涓瘮杈冭幏寰�,銆�鍗宠鍜屽畠鍛ㄥ洿8涓偣鍜屼笂涓�骞呭搴旂殑9涓偣浠ュ強涓嬩竴骞呭搴旂殑9涓偣锛屽洜姝や负浜嗚幏寰梥cales灞傜偣锛岄偅涔堝湪宸垎楂樻柉閲戝瓧濉斾腑闇�瑕佹湁scales+2骞呭浘鍍�,
-        // 鑰屽鏋滃樊鍒嗗浘骞呮暟鏄痵cales+2锛岄偅涔堜竴涓�︾┖闂翠腑鑷冲皯闇�瑕乻cales+2骞�
+        // 每一个极值点是在三维空间中比较获得，即要和它周围8个点和上一幅对应的9个点以及下一幅对应的9个点，因此为了获得scales层点，
+        // 那么在差分高斯金字塔中需要有scales+2幅图像,而如果差分图幅数是scales+2，那么8度空间中至少需要scales+2＋1幅高斯模糊图像。
         this.baseScale = baseScale;
         ImagePixelArray prev = base;
         smoothedImgs[0] = base;
@@ -108,7 +110,7 @@ public class OctaveSpace {
     }
 
     /**
-     * 绮剧‘鍖栫壒寰佺偣浣嶇疆骞剁敓鎴愭湰鍦板寲淇℃伅浠ュ強杩囪檻韬佺偣
+     * 精确化特征点位置并生成本地化信息以及过虑躁点
      * 
      * @param peaks
      * @param maximumEdgeRatio
@@ -125,9 +127,9 @@ public class OctaveSpace {
         int[][] processedMap = new int[this.diffImags[0].width][this.diffImags[0].height];
         for (ScalePeak peak : peaks) {
 
-            // 鍘婚櫎杈圭紭鐐� @see isTooEdgelike
+            // 去除边缘点 @see isTooEdgelike
             if (isTooEdgelike(diffImags[peak.level], peak.x, peak.y, maximumEdgeRatio)) continue;
-            // 绮剧‘鍖栫壒寰佺偣浣嶇疆 @see localizeIsWeak
+            // 精确化特征点位置 @see localizeIsWeak
             if (localizeIsWeak(peak, relocationMaximum, processedMap)) continue;
 
             if (Math.abs(peak.local.scaleAdjust) > scaleAdjustThresh) continue;
@@ -140,12 +142,12 @@ public class OctaveSpace {
     }
 
     /**
-     * 鍏堝皢宸垎鍥句笂姣忎釜鐐圭殑鏂瑰悜鍜岄�掑害璁＄畻鍑烘潵锛� 棰勮绠楃殑鎬讳綋鎬ц兘姣旂粺璁″湪鑼冨洿鍐呯殑鐐瑰啀璁＄畻鐨勯儴浣撴�ц兘瑕侀珮锛屽洜涓虹壒寰佺偣鍒嗗竷杈冨ぇ锛屽畠鍛ㄥ洿鐨勭偣鍙兘琚叾瀹冧腑蹇冪偣澶氭浣跨敤鍒帮紝 濡傛灉缁熻鍦ㄨ寖鍥村唴鍐嶈绠楃殑鐨勮瘽姣忎釜鐐瑰彲鑳借澶氭璁＄畻
+     * 先将差分图上每个点的梯度方向和梯度幅值计算出来，预计算的总体性能比统计在范围内的点再计算的总体性能要高，因为特征点分布较大， 它周围的点可能被其它中心点多次使用到， 如果统计在范围内再计算的的话每个点可能被多次计算。
      */
     public void pretreatMagnitudeAndDirectionImgs() {
 
-        magnitudes = new ImagePixelArray[this.smoothedImgs.length - 1];// 姊害鐨勬暟缁�
-        directions = new ImagePixelArray[this.smoothedImgs.length - 1];// 鏂瑰悜鐨勬暟缁�
+        magnitudes = new ImagePixelArray[this.smoothedImgs.length - 1];// 梯度的数组
+        directions = new ImagePixelArray[this.smoothedImgs.length - 1];// 方向的数组
         for (int s = 1; s < (this.smoothedImgs.length - 1); s++) {
             magnitudes[s] = new ImagePixelArray(this.smoothedImgs[s].width, this.smoothedImgs[s].height);
             directions[s] = new ImagePixelArray(this.smoothedImgs[s].width, this.smoothedImgs[s].height);
@@ -204,7 +206,7 @@ public class OctaveSpace {
     private ArrayList<FeaturePoint> makeFeaturePoint(float imgScale, ScalePeak point, float peakRelThresh,
                                                      int scaleCount, float octaveSigma) {
 
-        // 璁＄畻鐗瑰緛鐐圭殑鐩稿scale,杩欓噷鏄浼板��
+        // 计算特征点的相对scale,这里是预估值
         float fpScale = (float) (octaveSigma * Math.pow(2.0, (point.level + point.local.scaleAdjust) / scaleCount));
 
         // Lowe03, "A gaussian-weighted circular window with a \sigma three
@@ -216,7 +218,7 @@ public class OctaveSpace {
 
         ImagePixelArray magnitude = magnitudes[point.level];
         ImagePixelArray direction = directions[point.level];
-        // 纭畾閭荤偣鑼冨洿
+        // 确定邻点范围
         int xMin = Math.max(point.x - radius, 1);
         int xMax = Math.min(point.x + radius, magnitude.width - 1);
         int yMin = Math.max(point.y - radius, 1);
@@ -225,13 +227,13 @@ public class OctaveSpace {
         // G(r) = e^{-\frac{r^2}{2 \sigma^2}}
         float gaussianSigmaFactor = 2.0f * sigma * sigma;
 
-        float[] boxes = new float[36]; // 鏋勯�犺鐐归偦鍩熸搴︽柟鍚戠洿鏂瑰浘锛屽皢涓�鍦嗗懆360掳鍒掑垎鎴�涓Ы锛屼粠0掳寮�濮嬫瘡妲介�掑10掳锛屾墍浠ヤ竴鍏辨湁36涓Ы
+        float[] boxes = new float[36]; // 构造该点邻域梯度方向直方图，将一个圆周360°划分10个槽，从0°开始每槽递增10°，所以一共有36个槽
 
         for (int y = yMin; y < yMax; ++y) {
             for (int x = xMin; x < xMax; ++x) {
-                int relX = x - point.x;// 姹傚崐寰�
-                int relY = y - point.y;// 姹傚崐寰�
-                if (relX * relX + relY * relY > radiusSq) continue; // 鍕捐偂瀹氱悊
+                int relX = x - point.x;// 求半径
+                int relY = y - point.y;// 求半径
+                if (relX * relX + relY * relY > radiusSq) continue; // 勾股定理
 
                 float gaussianWeight = (float) Math.exp(-((relX * relX + relY * relY) / gaussianSigmaFactor));
 
@@ -257,7 +259,7 @@ public class OctaveSpace {
         interpolateOrientation(boxes[maxBox == 0 ? (36 - 1) : (maxBox - 1)], boxes[maxBox], boxes[(maxBox + 1) % 36],
                                ref1);
 
-        // 杩欐牱鎵惧埌鐨勪笉姝㈡槸涓や釜鏈�澶х殑鏂瑰悜 @see page 13
+        // 这样找到的不止是两个最大的方向 @see page 13
         boolean[] boxIsFeaturePoint = new boolean[36];
         for (int b = 0; b < 36; ++b) {
             boxIsFeaturePoint[b] = false;
@@ -288,7 +290,7 @@ public class OctaveSpace {
                 throw (new java.lang.IllegalStateException("BUG: Parabola fitting broken"));
             }
             float degree = (float) ((b + ref2.degreeCorrection) * oneBoxRad - Math.PI);
-            // 瀹屽叏鍖栧湪 -180 鍒� +180 涔嬮棿
+            // 完全化在 -180 到 +180 之间
 
             if (degree < -Math.PI) degree += 2.0 * Math.PI;
             else if (degree > Math.PI) degree -= 2.0 * Math.PI;
@@ -315,7 +317,7 @@ public class OctaveSpace {
 
     private void averageBoxes(float[] boxes) {
         // ( 0.4, 0.4, 0.3, 0.4, 0.4 ))
-        // 姣忎笁涓仛涓�涓钩鍧囩洿鑷冲畬鎴�
+        // 每三个做1个平均直至完成
         for (int sn = 0; sn < 4; ++sn) {
             float first = boxes[0];
             float last = boxes[boxes.length - 1];
@@ -344,7 +346,7 @@ public class OctaveSpace {
                                                       int descDim, int directionCount, float fvGradHicap) {
 
         if (featurePoints.size() <= 0) return (featurePoints);
-        // 閫氳繃灏哄害鍥犲瓙鎵惧埌鍛ㄥ洿鎵�鍖呭惈鐨勫儚绱�
+        // 通过尺度因子找到周围所包含的像素
         considerScaleFactor *= featurePoints.get(0).scale;
         float dDim05 = ((float) descDim) / 2.0f;
 
@@ -352,47 +354,47 @@ public class OctaveSpace {
 
         ArrayList<FeaturePoint> survivors = new ArrayList<FeaturePoint>();
 
-        float sigma2Sq = 2.0f * dDim05 * dDim05;// 2 * sigma ^2鏄珮鏂嚱鏁癳鎸囨暟涓婄殑鍒嗘瘝涓婄殑鏁�
+        float sigma2Sq = 2.0f * dDim05 * dDim05;// 2 * sigma ^2是高斯函数e指数上的分母
         for (FeaturePoint fp : featurePoints) {
-            float angle = -fp.orientation;// 鏃嬭浆-angle鎷夊埌姘村钩鏂瑰悜涓婃潵
+            float angle = -fp.orientation;// 旋转-angle拉到水平方向上来
 
             fp.createVector(descDim, descDim, directionCount);
 
-            // 鏃嬭浆angle搴︾殑鍧愭爣
+            // 旋转angle度的坐标
             for (int y = -radius; y < radius; ++y) {
                 for (int x = -radius; x < radius; ++x) {
 
                     float yR = (float) (Math.sin(angle) * x + Math.cos(angle) * y);
                     float xR = (float) (Math.cos(angle) * x - Math.sin(angle) * y);
 
-                    // 浣夸粬瀹氫箟鍦ㄦ弿杩板櫒鐨勭含搴︿箣鍐�
-                    yR /= considerScaleFactor; // yR = yR / considerScaleFactor
-                    xR /= considerScaleFactor; // yR = yR / considerScaleFactor
+                    // 使他定义在描述器的纬度之内
+                    yR /= considerScaleFactor;
+                    xR /= considerScaleFactor;
 
-                    // 浣胯鐐逛笉瓒呭嚭鎻忚堪鍣ㄧ殑鑼冨洿
+                    // 使该点不超出描述器的范围
                     if (yR >= (dDim05 + 0.5) || xR >= (dDim05 + 0.5) || xR <= -(dDim05 + 0.5) || yR <= -(dDim05 + 0.5)) continue;
-                    // 璁＄畻鍏抽敭鐐瑰拰鍔犳潈鐨勭偣鐨勫叿浣搙浣嶇疆
+                    // 计算关键点和加权的点的具体x位置
                     int currentX = (int) (x + fp.x + 0.5);
-                    // 璁＄畻鍏抽敭鐐瑰拰鍔犳潈鐨勭偣鐨勫叿浣搚浣嶇疆
+                    // 计算关键点和加权的点的具体y位置
 
                     int currentY = (int) (y + fp.y + 0.5);
-                    // 杩欎繚璇佸畠鍦ㄨ寖鍥翠箣鍐呴儴鍑哄幓
+                    // 这保证它在范围之内部出去
                     if (currentX < 1 || currentX >= (magnitude.width - 1) || currentY < 1
                         || currentY >= (magnitude.height - 1)) continue;
-                    // 楂樻柉鏉冮噸鐨勮绠�
+                    // 高斯权重的计算
                     float magW = (float) Math.exp(-(xR * xR + yR * yR) / sigma2Sq)
                                  * magnitude.data[currentY * magnitude.width + currentX];
                     yR += dDim05 - 0.5;
                     xR += dDim05 - 0.5;
 
-                    // 鍦ㄤ袱涓偣涔嬮棿鏈夐樁璺冪殑鏃跺�欓兘鍙互鐢ㄦ彃鍊�
+                    // 在两个点之间有阶跃的时候都可以用插值
                     int[] xIdx = new int[2];
                     int[] yIdx = new int[2];
-                    int[] dirIdx = new int[2]; // 姣忎釜鐐圭殑鍧愭爣鐨刼rientation绱㈠紩 [0] 鏂瑰悜鐨勫�� [1]鏄偅涓柟鍚�
+                    int[] dirIdx = new int[2]; // 每个点的坐标的orientation索引 [0] 方向的值 [1]是那个方向
                     float[] xWeight = new float[2];
                     float[] yWeight = new float[2];
-                    float[] dirWeight = new float[2];// 鏂瑰悜涓�
-                    // 鍙兘鍦ㄥ仛鎻掑��
+                    float[] dirWeight = new float[2];// 方向上
+                    // 可能在做插值
                     if (xR >= 0) {
                         xIdx[0] = (int) xR;
                         xWeight[0] = (1.0f - (xR - xIdx[0]));
@@ -410,20 +412,20 @@ public class OctaveSpace {
                         yIdx[1] = (int) (yR + 1.0);
                         yWeight[1] = yR - yIdx[1] + 1.0f;
                     }
-                    // end 鍙兘鍦ㄥ仛鎻掑��
+                    // end 可能在做插值
 
-                    // 鏃嬭浆瑙掑害鍒癴eaturePoint鐨勫潗鏍囦笅鏉ワ紝骞朵笖鐢╗ -pi : pi ] 鏉ヨ〃绀�
+                    // 旋转角度到featurePoint的坐标下来，并且用[ -pi : pi ] 来表示
                     float dir = direction.data[currentY * direction.width + currentX] - fp.orientation;
                     if (dir <= -Math.PI) dir += Math.PI;
                     if (dir > Math.PI) dir -= Math.PI;
-                    // 缁熶竴鍦ㄥ垎鐫�涓叓涓柟鍚戜笂鏉�
-                    float idxDir = (float) ((dir * directionCount) / (2.0 * Math.PI));// directionCount/8涓烘瘡涓�涓害鏁版湁鍑犱釜鏂瑰悜锛岀劧鍚�
-                                                                                      // dir灏辩粺涓�鍒颁竴鑷崇殑鏂瑰悜涓婃潵浜�
+                    // 统一到8个方向上
+                    float idxDir = (float) ((dir * directionCount) / (2.0 * Math.PI)); // directionCount/8为每一个度数有几个方向，然后
+                                                                                       // * dir就统一到一至的方向上来了
                     if (idxDir < 0.0) idxDir += directionCount;
                     dirIdx[0] = (int) idxDir;
-                    dirIdx[1] = (dirIdx[0] + 1) % directionCount; // 涓嬩竴涓柟鍚�
-                    dirWeight[0] = 1.0f - (idxDir - dirIdx[0]); // 鍜屼笅涓�涓柟鍚戞墍宸殑鍊�
-                    dirWeight[1] = idxDir - dirIdx[0]; // 鍜屾墍鍦ㄦ柟鍚戞墍宸殑鍊�
+                    dirIdx[1] = (dirIdx[0] + 1) % directionCount; // 下一个方向
+                    dirWeight[0] = 1.0f - (idxDir - dirIdx[0]); // 和下一个方向所差的值
+                    dirWeight[1] = idxDir - dirIdx[0]; // 和所在方向所差的值
                     for (int iy = 0; iy < 2; ++iy) {
                         for (int ix = 0; ix < 2; ++ix) {
                             for (int d = 0; d < 2; ++d) {
@@ -442,27 +444,21 @@ public class OctaveSpace {
         return (survivors);
     }
 
-    // use root sift?
+    // 这里使用root sift（）进行二次归一化，可以有降燥
     private void capAndNormalizeFV(FeaturePoint kp, float fvGradHicap) {
 
         float norm = 0.0f;
         for (int n = 0; n < kp.features.length; ++n)
-            norm += Math.pow(kp.features[n], 2.0);// 鎵�鏈夌殑鍊煎钩鏂�
+            norm += Math.pow(kp.features[n], 2.0);// 所有的值平方
 
-        norm = (float) Math.sqrt(norm);// // feature vector鐨勬ā
+        norm = (float) Math.sqrt(norm);// // feature vector的模
         if (norm == 0.0) throw (new IllegalStateException("CapAndNormalizeFV cannot normalize with norm = 0.0"));
 
         for (int n = 0; n < kp.features.length; ++n) {
             kp.features[n] /= norm;
             if (kp.features[n] > fvGradHicap) kp.features[n] = fvGradHicap;
         }
-        // Hicap after normalization
-        // for (int n = 0; n < kp.featureVector.length; ++n) {
-        // if(kp.featureVector[n] > fvGradHicap)
-        // kp.featureVector[n] = fvGradHicap;
-        // }
 
-        // Renormalize again
         norm = 0.0f;
         for (int n = 0; n < kp.features.length; ++n)
             norm += Math.pow(kp.features[n], 2.0);
@@ -473,7 +469,7 @@ public class OctaveSpace {
     }
 
     /**
-     * 浠庝竴涓�︾┖闂寸殑楂樻柉宸垎鍥鹃泦鍚堜腑绗簩骞呰捣鍒板埌鏁扮浜屽箙锛岀涓�骞呬笂鐨勭偣鍜屽畠鍛ㄥ洿鐨�偣浠ュ強涓婁竴骞呭搴斾綅缃殑9涓偣鍜屼笅涓�骞呭搴斾綅缃殑鐐硅繘琛屾瘮杈冿紝鐪嬫槸鍚︽槸鏈�澶ф垨鏈�灏忓�笺�� 鎵�浠ョО涓篢hreeLeve
+     * 从一个8度空间的高斯差分图集合中第二幅起到到数第二幅，每一幅上的点和它周围的8个点以及上一幅对应位置的9个点和下一幅对应位置的9个点进行比较，看是否是最大值或最小值。 所以称为ThreeLeve
      * 
      * @param below
      * @param current
@@ -491,9 +487,9 @@ public class OctaveSpace {
                 RefCheckMark ref = new RefCheckMark();
                 ref.isMin = true;
                 ref.isMax = true;
-                float c = current.data[x + y * current.width]; // 浣滀负涓��
+                float c = current.data[x + y * current.width]; // 作为中值
 
-                if (Math.abs(c) <= dogThresh) continue; // 鏈�灏忓�煎皬浜巇ogThresh鐩存帴杩囪檻锛岄槻姝㈠ぇ鐗囪楂樻湡妯＄硦鍚庣殑浣庡�肩偣琚�変腑
+                if (Math.abs(c) <= dogThresh) continue; // 绝对值小于dogThresh直接过虑，防止大片被高期模糊后的低值点被选中
 
                 checkMinMax(current, c, x, y, ref, true);
                 checkMinMax(below, c, x, y, ref, false);
@@ -510,34 +506,34 @@ public class OctaveSpace {
         if (layer == null) return;
 
         if (ref.isMin) {
-            if (layer.data[(y - 1) * layer.width + x - 1] <= c // // 宸︿笂瑙�
-                || layer.data[y * layer.width + x - 1] <= c // 宸﹁竟
-                || layer.data[(y + 1) * layer.width + x - 1] <= c // 宸︿笅
-                || layer.data[(y - 1) * layer.width + x] <= c // 涓婅竟
-                || (isCurrentLayer ? false : (layer.data[y * layer.width + x] < c))// 涓棿鐐癸紝濡傛灉鏄綋鍓嶅眰鐩存帴涓篺alse(鑷繁),涓嶆槸褰撳墠灞傚簲璇ュ皬浜�,娌℃湁绛変簬鐨勬潯浠�
-                || layer.data[(y + 1) * layer.width + x] <= c // 涓嬭竟
-                || layer.data[(y - 1) * layer.width + x + 1] <= c // 鍙充笂
-                || layer.data[y * layer.width + x + 1] <= c // 鍙宠竟
-                || layer.data[(y + 1) * layer.width + x + 1] <= c) // 鍙充笅
+            if (layer.data[(y - 1) * layer.width + x - 1] <= c // // 左上
+                || layer.data[y * layer.width + x - 1] <= c // 左边
+                || layer.data[(y + 1) * layer.width + x - 1] <= c // 左下
+                || layer.data[(y - 1) * layer.width + x] <= c // 上边
+                || (isCurrentLayer ? false : (layer.data[y * layer.width + x] < c))// 中间点，如果是当前层直接为false(自己),不是当前层应该小于,没有等于的条件
+                || layer.data[(y + 1) * layer.width + x] <= c // 下边
+                || layer.data[(y - 1) * layer.width + x + 1] <= c // 右上
+                || layer.data[y * layer.width + x + 1] <= c // 右边
+                || layer.data[(y + 1) * layer.width + x + 1] <= c) // 右下
             ref.isMin = false;
         }
         if (ref.isMax) {
-            if (layer.data[(y - 1) * layer.width + x - 1] >= c // 宸︿笂
-                || layer.data[y * layer.width + x - 1] >= c // 宸﹁竟
-                || layer.data[(y + 1) * layer.width + x - 1] >= c // 宸︿笅
-                || layer.data[(y - 1) * layer.width + x] >= c // 涓婅竟
-                || (isCurrentLayer ? false : (layer.data[y * layer.width + x] > c)) // 涓棿鐐癸紝濡傛灉鏄綋鍓嶅眰鐩存帴涓篺alse(鑷繁),涓嶆槸褰撳墠灞傚簲璇ュぇ浜�,娌℃湁绛変簬鐨勬潯浠�
-                || layer.data[(y + 1) * layer.width + x] >= c // 涓嬭竟
-                || layer.data[(y - 1) * layer.width + x + 1] >= c // 鍙充笂
-                || layer.data[y * layer.width + x + 1] >= c // 鍙宠竟
-                || layer.data[(y + 1) * layer.width + x + 1] >= c) // 鍙充笅
+            if (layer.data[(y - 1) * layer.width + x - 1] >= c // 左上
+                || layer.data[y * layer.width + x - 1] >= c // 左边
+                || layer.data[(y + 1) * layer.width + x - 1] >= c // 左下
+                || layer.data[(y - 1) * layer.width + x] >= c // 上边
+                || (isCurrentLayer ? false : (layer.data[y * layer.width + x] > c)) // 中间点，如果是当前层直接为false(自己),不是当前层应该大于,没有等于的条件
+                || layer.data[(y + 1) * layer.width + x] >= c // 下边
+                || layer.data[(y - 1) * layer.width + x + 1] >= c // 右上
+                || layer.data[y * layer.width + x + 1] >= c // 右边
+                || layer.data[(y + 1) * layer.width + x + 1] >= c) // 右下
             ref.isMax = false;
         }
     }
 
     /**
-     * 杈圭紭鐐圭殑鐗圭偣鏄部杈圭紭涓や晶鐨勭偣鐨勪富鏇茬巼寰堝ぇ锛堟洸鐜囧崐寰勫皬锛夛紝鑰屼笌杈圭紭鐩稿垏鐨勪富鏇茬巼灏忥紙鏇茬巼鍗婂緞澶э級锛岃鐧戒簡灏辨槸铏界劧瀹冨拰杈圭紭绾挎梺杈圭殑鐐规瘮杈冨樊鍊煎ぇ锛屼絾娌胯竟缂樼嚎涓婄殑鐐逛箣闂�
-     * 宸�煎緢灏忥紝杩欐牱鍦ㄨ竟缂樹笂鐨勪竴鐐瑰拰鍙︿竴鐐圭殑鎻忚堪瀛愬熀鏈槸宸笉澶氫簡锛屽緢闅剧簿纭畾浣嶆槸鍝竴涓偣锛屾墍浠ヨ鍘绘帀銆侤page 12
+     * 边缘点的特点是沿边缘两侧的点的主曲率很大（曲率半径小），而与边缘相切的主曲率小（曲率半径大），说白了就是虽然它和边缘线旁边的点比较差值大，但沿边缘线上的点之间的
+     * 差值很小，这样在边缘上的一点和另一点的描述子基本是差不多了，很难精确定位是哪一个点，所以要去掉。@page 12
      * 
      * @param space
      * @param x
@@ -548,12 +544,16 @@ public class OctaveSpace {
     private boolean isTooEdgelike(ImagePixelArray space, int x, int y, float r) {
         float d_xx, d_yy, d_xy;
 
-        /*
-         * d_xx = d_f(x+1) - d_f( x );0 d_f(x+1) = f(x+1) - f( x ); 1 d_f(x) = f(x) - f( x-1 );2 灏� 1锛� 2寮忎唬鍏�忓緱 d_xx =
-         * f(x+1) + f(x-1) - 2 * f(x); 瀵癸拷?d_xy = ( d_f( x , y+1 ) - d_f( x, y-1 ) ) * 0.5; 0 d_f(x,y+1) = (f(x+1,y+1) -
-         * f(x-1,y+1)) * 0.5; 1 d_f(x,y-1) = (f(x+1,y-1) - f(x-1,y-1)) * 0.5; 2 灏��ｅ叆 0 寮� *
-         * (f(x+1,y+1)+f(x+1,y-1)-f(x-1,y+1)-f(x-1,y-1)) * 0.25
-         */
+        // d_xx = d_f(x+1) - d_f( x );0
+        // d_f(x+1) = f(x+1) - f( x ); 1
+        // d_f(x) = f(x) - f( x-1 );2
+        // 将 1， 2式代入0式得
+        // d_xx = f(x+1) + f(x-1) - 2 * f(x);
+        // 对于d_xy = ( d_f( x , y+1 ) - d_f( x, y-1 ) ) * 0.5; 0
+        // d_f(x,y+1) = (f(x+1,y+1) - f(x-1,y+1)) * 0.5; 1
+        // d_f(x,y-1) = (f(x+1,y-1) - f(x-1,y-1)) * 0.5; 2
+        // 将1，2代入 0 式
+        // (f(x+1,y+1)+f(x+1,y-1)-f(x-1,y+1)-f(x-1,y-1)) * 0.25
 
         d_xx = space.data[(y + 1) * space.width + x] + space.data[(y - 1) * space.width + x] - 2.0f
                * space.data[y * space.width + x];
@@ -575,7 +575,7 @@ public class OctaveSpace {
     }
 
     /**
-     * 鐢变簬鍥惧儚鏄竴涓鏁ｇ殑绌洪棿锛屾渶鍚庣殑鐗瑰緛鐐圭殑浣嶇疆鐨勫潗鏍囬兘鏄暣鏁帮紝浣嗘槸澶囬�夌殑鏋佸�肩偣鐨勫潗鏍囧苟涓嶄竴瀹氭槸鏁存暟锛屾墍浠ヨ鎶婂綋鍓嶅閫夌殑鏋佸�肩偣鎶曞皠鍒板浘鍍忕殑鍧愭爣涓婏紝闇�瑕佷竴瀹氱殑璋冩暣
+     * 由于图像是一个离散的空间，最后的特征点的位置的坐标都是整数，但是备选的极值点的坐标是在连续尺度空间获取的，并不一定是整数，所以要把当前备选的极值点投射到图像的坐标上， 需要进行一定的调整
      * 
      * @see page 10
      * @param peak
@@ -603,19 +603,18 @@ public class OctaveSpace {
             float adjX = adj.data[2];
 
             if (Math.abs(adjX) > 0.5 || Math.abs(adjY) > 0.5) {
-                // 璋冩暣鐨勮寖鍥磋秴杩�5锛屽彲鑳芥槸涓嬩竴涓薄绱狅紝鐩存帴杩囪檻鎺夈��
+                // 调整的范围超过0.5，可能是下一个象素，直接过虑掉
                 if (adjusted == 0) {
                     return (true);
                 }
                 adjusted -= 1;
 
-                // 鐢ㄥ钩鏂瑰仛瀹冪殑鍋忕绋嬪害
-                // 浜氬儚绱犵殑搴旂敤鎰忎箟2006骞���
+                // 用平方做它的偏离程度
+                // 亚像素的应用意义
                 float distSq = adjX * adjX + adjY * adjY;
                 if (distSq > 2.0) return (true);
 
-                // 濡傛灉涓嶆弧瓒宠竟缂樹腑蹇冨噯鍒欙細鑻ワ紙adjX,adjY锛変笉鍦╗-0.5,0.5]涔嬮棿
-                // 鍒欎互锛� x + 1 锛夋垨 锛坸 - 1) 涓烘柊鐨勫睍寮�鐐�
+                // 如果不满足边缘中心准则：若（adjX,adjY）不在[-0.5,0.5]之间 则以（ x + 1 ）或 （x - 1) 为新的展开点
                 peak.x = (int) (peak.x + adjX + 0.5);
                 peak.y = (int) (peak.y + adjY + 0.5);
                 // point.Level = (int) (point.Level + adjS + 0.5);
@@ -626,7 +625,7 @@ public class OctaveSpace {
 
             processed[peak.x][peak.y] = 1;
 
-            // 淇濆瓨璋冩暣鍚庣殑鍙傛暟浠ヤ究鍚庨潰鐨勮繃铏�
+            // 保存调整后的参数以便后面的过虑
             LocalInfo local = new LocalInfo(adjS, adjX, adjY);
             local.dValue = space.data[peak.y * space.width + peak.x] + 0.5f * dp.val;
             peak.local = local;
@@ -647,7 +646,7 @@ public class OctaveSpace {
 
         AdjustedArray h = new AdjustedArray(3, 3);
         /*
-         * 涓嬮潰鏄骞呭浘鍍忓昂搴︾┖闂寸殑涓夊厓鍋忓鏁帮紝璁颁綇鏄昂搴︾┖闂翠笂 鐨勪簩闃惰嚜鍙橀噺涓�勫亸瀵兼暟2006.3.1
+         * 下面是该幅图像尺度空间的三元偏导数，尺度空间上的二阶自变量为3的偏导数2006.3.1
          */
         h.data[0] = b.data[y * b.width + x] - 2 * c.data[y * c.width + x] + a.data[y * a.width + x]; // h.data[0][0]
 
@@ -670,7 +669,7 @@ public class OctaveSpace {
                                   + c.data[y * c.width + x + 1];
         AdjustedArray d = new AdjustedArray(1, 3);
         /*
-         * 涓嬮潰杩欎釜鏄嚜鍙橀噺涓�勪竴闃跺亸瀵兼暟2006.3.1
+         * 下面这个是自变量为3的一阶偏导数2006.3.1
          */
 
         d.data[0] = 0.5f * (a.data[y * a.width + x] - b.data[y * b.width + x]); // d.data[1][0] => d.data[0*width+1] =
@@ -680,7 +679,7 @@ public class OctaveSpace {
 
         AdjustedArray back = d.clone();
         back.negate();
-        // 姹傝ВSolve: A x = b
+        // 求解Solve: A x = b
         h.solveLinear(back);
         ref.val = back.dot(d);
         return (back);
@@ -703,7 +702,7 @@ public class OctaveSpace {
             return cp;
         }
 
-        // 鐭╅樀鐨勭偣涔�
+        // 矩阵的点乘
         public float dot(AdjustedArray aa) {
             if (this.width != aa.width || this.width != 1 || aa.width != 1) {
                 throw (new IllegalArgumentException("Dotproduct only possible for two equal n x 1 matrices"));
@@ -721,7 +720,7 @@ public class OctaveSpace {
             }
         }
 
-        // 楂樻柉涓诲厓绱犳秷鍘绘硶
+        // 高斯主元素消去法
         public void solveLinear(AdjustedArray vec) {
             if (this.width != this.height || this.height != vec.height) {
                 throw (new IllegalArgumentException("Matrix not quadratic or vector dimension mismatch"));
@@ -735,7 +734,7 @@ public class OctaveSpace {
 
                 int yMaxIndex = y;
                 float yMaxValue = Math.abs(data[y * this.width + y]);
-                // 鎵惧垪涓渶澶х殑閭ｄ釜鍏冪礌
+                // 找列中最大的那个元素
                 for (int py = y; py < this.height; ++py) {
                     if (Math.abs(data[py * this.width + y]) > yMaxValue) {
                         yMaxValue = Math.abs(data[py * this.width + y]);
@@ -745,7 +744,7 @@ public class OctaveSpace {
 
                 swapRow(y, yMaxIndex);
                 vec.swapRow(y, yMaxIndex);
-                // 鍖栨垚涓婁笁瑙掗樀
+                // 化成上三角阵
                 for (int py = y + 1; py < this.height; ++py) {
                     float elimMul = data[py * this.width + y] / data[y * this.width + y];
                     for (int x = 0; x < this.width; ++x)
@@ -754,8 +753,8 @@ public class OctaveSpace {
                 }
             }
 
-            // 姹傝В鏀惧叆vec涓�
-            // 浠庤繖閲屾垜浠繕鍙互鐪嬪嚭锛屽弬鏁版槸绫荤殑瀵硅薄锛岀瓑浜庢槸浼犲叆绫荤殑鎸囬拡
+            // 求解放入vec中
+            // 从这里我们还可以看出，参数是类的对象，等于是传入类的指针
             for (int y = this.height - 1; y >= 0; --y) {
                 float solY = vec.data[y * vec.width + 0];
                 for (int x = this.width - 1; x > y; --x)
@@ -776,7 +775,7 @@ public class OctaveSpace {
     }
 
     /**
-     * 鐢ㄤ簬浼犻�掑紩鐢ㄧ殑鏁版嵁缁撴瀯
+     * 用于传递引用的数据结构
      */
     static class RefCheckMark {
 
@@ -785,7 +784,7 @@ public class OctaveSpace {
     }
 
     /**
-     * 鐢ㄤ簬浼犻�掑紩鐢ㄧ殑鏁版嵁缁撴瀯
+     * 用于传递引用的数据结构
      */
     static class RefPeakValueAndDegreeCorrection {
 
@@ -794,4 +793,3 @@ public class OctaveSpace {
     }
 
 }
-
