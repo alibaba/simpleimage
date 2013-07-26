@@ -2,7 +2,9 @@ package com.alibaba.simpleimage.analyze.harissurf;
 
 import java.util.Arrays;
 
-public class SURFInterestPoint implements Cloneable,InterestPoint {
+import com.alibaba.simpleimage.analyze.search.cluster.Clusterable;
+
+public class SURFInterestPoint implements Cloneable,InterestPoint,Clusterable {
 	private static final long serialVersionUID = 1L;
 
 	private float mX,mY;

@@ -1,81 +1,44 @@
 package com.alibaba.simpleimage.analyze.testbed;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import com.alibaba.simpleimage.analyze.harissurf.IntegralImage;
-import com.alibaba.simpleimage.analyze.harris.Corner;
-import com.alibaba.simpleimage.analyze.harris.HarrisFast;
+import com.alibaba.simpleimage.analyze.harissurf.HarrisSurf;
+import com.alibaba.simpleimage.analyze.harissurf.SURFInterestPoint;
 
 public class HarrisTest {
 
-	public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
+        BufferedImage bi = ImageIO.read(new File("/Users/axman/Downloads/logo/img/alipay_logo1.png"));
+        HarrisSurf tempalte_hs = new HarrisSurf(bi);
+        tempalte_hs.getDescriptions(tempalte_hs.detectInterestPoints(), false);
+        List<SURFInterestPoint> al = tempalte_hs.getInterestPoints();
 
-		BufferedImage img = null;
-		// BufferedImage img_output = null;
-		// FileReader in = null;
-		// FileWriter out = null;
-		HarrisFast hf = null;
-		// String filepath = "D:/aliDrive/test_image/phishing_test/template/";
-		String filepath = "D:/AliDrive/test_image/phishing_test/target/";
-		// String filename = "alipay_logo1.png";
-		String filename = "alipay_2.png";
-		// String filename = "icbu_logo1.png";
-		int i, j;
+        BufferedImage bi1 = ImageIO.read(new File("/Users/axman/Downloads/logo/img/alipay_logo1.png"));
+        long start = System.currentTimeMillis();
 
-		img = ImageIO.read(new File(filepath + filename));
+        for (int i = 0; i < 100; i++) {
+            HarrisSurf tempalte_hs1 = new HarrisSurf(bi1);
+            tempalte_hs1.getDescriptions(tempalte_hs.detectInterestPoints(), false);
+            List<SURFInterestPoint> al1 = tempalte_hs1.getInterestPoints();
+            Map<SURFInterestPoint, SURFInterestPoint> ms = HarrisSurf.match(al, al1);
+            HarrisSurf.joinsFilter(ms);
+            HarrisSurf.geometricFilter(ms, bi.getWidth(), bi.getHeight());
+            //System.out.println(ms.size());
+        }
+        System.out.println((System.currentTimeMillis() - start) / 100);
+    }
 
-		int width = img.getWidth();
-		int height = img.getHeight();
-		int[][] input = new int[width][height];
-
-		for (i = 0; i < width - 1; i++) {
-			for (j = 0; j < height - 1; j++) {
-				input[i][j] = rgb2gray(img.getRGB(i, j));
-			}
-		}
-
-		double sigma = 1.2;
-		double k = 0.06;
-		int spacing = 4;
-
-		IntegralImage mIntegralImage = new IntegralImage(img);
-		hf = new HarrisFast(input, width, height, mIntegralImage);
-		hf.filter(sigma, k, spacing);
-
-		Graphics2D g2d = img.createGraphics();
-		g2d.setColor(Color.GREEN);
-
-		for (Corner corner : hf.corners) {
-			g2d.fill(new Rectangle2D.Float(corner.getX() - 1, corner.getY() - 1, 2, 2));
-		}
-
-		g2d.dispose();
-
-		FileOutputStream fos;
-		try {
-			fos = new FileOutputStream(filepath + "out_" + filename);
-			ImageIO.write(img, "png", fos);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	static int rgb2gray(int srgb) {
-		int r = (srgb >> 16) & 0xFF;
-		int g = (srgb >> 8) & 0xFF;
-		int b = srgb & 0xFF;
-		return (int) (0.299 * r + 0.587 * g + 0.114 * b);
-	}
+    static int rgb2gray(int srgb) {
+        int r = (srgb >> 16) & 0xFF;
+        int g = (srgb >> 8) & 0xFF;
+        int b = srgb & 0xFF;
+        return (int) (0.299 * r + 0.587 * g + 0.114 * b);
+    }
 
 }
