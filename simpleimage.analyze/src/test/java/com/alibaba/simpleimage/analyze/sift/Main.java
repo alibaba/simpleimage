@@ -24,88 +24,66 @@ import com.alibaba.simpleimage.analyze.sift.io.KDFeaturePointInfoReader;
 import com.alibaba.simpleimage.analyze.sift.io.KDFeaturePointListInfo;
 import com.alibaba.simpleimage.analyze.sift.match.Match;
 import com.alibaba.simpleimage.analyze.sift.match.MatchKeys;
+import com.alibaba.simpleimage.analyze.sift.render.RenderImage;
 import com.alibaba.simpleimage.analyze.sift.scale.KDFeaturePoint;
-
 
 public class Main {
 
-    static {
-        System.setProperty(ModifiableConst._TOWPNTSCALAMINUS, "8.0");
-        System.setProperty(ModifiableConst._SLOPEARCSTEP, "5");
-        System.setProperty(ModifiableConst._TOWPNTORIENTATIONMINUS, "0.05");
+	static {
+		System.setProperty(ModifiableConst._TOWPNTSCALAMINUS, "8.0");
+		System.setProperty(ModifiableConst._SLOPEARCSTEP, "5");
+		System.setProperty(ModifiableConst._TOWPNTORIENTATIONMINUS, "0.05");
 
-    }
+	}
 
-    public static void drawImage(BufferedImage logo, BufferedImage model, String file, List<Match> ms) throws Exception {
-        int lw = logo.getWidth();
-        int lh = logo.getHeight();
+	public static void drawImage(BufferedImage logo, BufferedImage model,
+			String file, List<Match> ms) throws Exception {
+		int lw = logo.getWidth();
+		int lh = logo.getHeight();
 
-        int mw = model.getWidth();
-        int mh = model.getHeight();
+		int mw = model.getWidth();
+		int mh = model.getHeight();
 
-        BufferedImage outputImage = new BufferedImage(lw + mw, lh + mh, BufferedImage.TYPE_INT_RGB);
+		BufferedImage outputImage = new BufferedImage(lw + mw, lh + mh,
+				BufferedImage.TYPE_INT_RGB);
 
-        Graphics2D g = outputImage.createGraphics();
-        g.drawImage(logo, 0, 0, lw, lh, null);
-        g.drawImage(model, lw, lh, lw + mw, lh + mh, null);
-        g.setColor(Color.GREEN);
-        for (Match m : ms) {
-            KDFeaturePoint fromPoint = m.fp1;
-            KDFeaturePoint toPoint = m.fp2;
-            g.drawLine((int) fromPoint.x, (int) fromPoint.y, (int) toPoint.x + lw, (int) toPoint.y + lh);
-        }
-        g.dispose();
-        FileOutputStream fos = new FileOutputStream(file);
-        ImageIO.write(outputImage, "JPEG", fos);
-        fos.close();
-    }
+		Graphics2D g = outputImage.createGraphics();
+		g.drawImage(logo, 0, 0, lw, lh, null);
+		g.drawImage(model, lw, lh, mw, mh, null);
+		g.setColor(Color.GREEN);
+		for (Match m : ms) {
+			KDFeaturePoint fromPoint = m.fp1;
+			KDFeaturePoint toPoint = m.fp2;
+			g.drawLine((int) fromPoint.x, (int) fromPoint.y, (int) toPoint.x
+					+ lw, (int) toPoint.y + lh);
+		}
+		g.dispose();
+		FileOutputStream fos = new FileOutputStream(file);
+		ImageIO.write(outputImage, "JPEG", fos);
+		fos.close();
+	}
 
-    public static void main(String[] args) throws Exception {
-        Map<String, KDFeaturePointListInfo> logoMap = new HashMap<String, KDFeaturePointListInfo>();
-        File logoDir = new File("/Users/axman/Downloads/logo/sift");
-        File[] logoFiles = logoDir.listFiles(new FileFilter() {
+	public static void main(String[] args) throws Exception {
 
-            public boolean accept(File arg0) {
-                return arg0.getName().endsWith(".sift");
-            }
-        });
-        for (File logoFile : logoFiles) {
-            KDFeaturePointListInfo info = KDFeaturePointInfoReader.readComplete(logoFile.getAbsolutePath());
-            logoMap.put(logoFile.getName(), info);
-        }
+		BufferedImage img = ImageIO.read(new File(
+				"/Users/axman/Downloads/min.png"));
+		RenderImage ri = new RenderImage(img);
+		SIFT sift = new SIFT();
+		sift.detectFeatures(ri.toPixelFloatArray(null));
+		List<KDFeaturePoint> al = sift.getGlobalKDFeaturePoints();
 
-        File modelDir = new File("/Users/axman/Downloads/model/sift");
-        File[] modleFiles = modelDir.listFiles(new FileFilter() {
+		BufferedImage img1 = ImageIO.read(new File(
+				"/Users/axman/Downloads/big.png"));
+		RenderImage ri1 = new RenderImage(img1);
+		SIFT sift1 = new SIFT();
+		sift1.detectFeatures(ri1.toPixelFloatArray(null));
+		List<KDFeaturePoint> al1 = sift1.getGlobalKDFeaturePoints();
 
-            public boolean accept(File arg0) {
-                return arg0.getName().endsWith(".sift");
-            }
-        });
+		List<Match> ms = MatchKeys.findMatchesBBF(al1, al);
+		ms = MatchKeys.filterMore(ms);
+		//ms = MatchKeys.filterFarMatchL(ms, img.getWidth(), img.getHeight());
+		//ms = MatchKeys.filterFarMatchR(ms, img1.getWidth(), img.getHeight());
+		drawImage(img1, img, "/Users/axman/Downloads/test1.jpg", ms);
 
-        for (File modelFile : modleFiles) {
-            KDFeaturePointListInfo modelInfo = KDFeaturePointInfoReader.readComplete(modelFile.getAbsolutePath());
-
-            List<KDFeaturePoint> alm = modelInfo.getList();
-            if (alm.size() < 10) continue;
-            for (KDFeaturePointListInfo logoInfo : logoMap.values()) {
-
-                List<KDFeaturePoint> all = logoInfo.getList();
-                if (all.size() < 10) continue;
-                List<Match> ms = MatchKeys.findMatchesBBF(all, alm);
-                ms = MatchKeys.filterMore(ms);
-                ms = MatchKeys.filterFarMatchL(ms, logoInfo.getWidth(), logoInfo.getHeight());
-                ms = MatchKeys.filterFarMatchR(ms, modelInfo.getWidth(), logoInfo.getHeight());
-                if(ms.size() < 5) continue;
-                String fileName = logoInfo.getImageFile() + "," + modelInfo.getImageFile() + "," + ms.size();
-                System.out.println(fileName);
-                String lf = "/Users/axman/Downloads/logo/img/" + logoInfo.getImageFile().replaceFirst(".sift", "");
-
-                BufferedImage logo = ImageIO.read(new File(lf));
-                String mf = "/Users/axman/Downloads/model/img/" + modelInfo.getImageFile().replaceFirst(".sift", "");
-                BufferedImage model = ImageIO.read(new File(mf));
-                drawImage(logo, model, "/Users/axman/Downloads/tmp/" + fileName+".jpg", ms);
-            }
-
-        }
-    }
+	}
 }

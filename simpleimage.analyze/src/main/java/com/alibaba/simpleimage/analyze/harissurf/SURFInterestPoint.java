@@ -92,13 +92,16 @@ public class SURFInterestPoint implements Cloneable,InterestPoint,Clusterable {
 	}
 	
 	public double getDistance(InterestPoint point){
-		double sum = 0;
-		if ( point.getLocation() == null || mDescriptor == null ) return Float.MAX_VALUE;
+		float sum = 0;
+		float[] location = point.getLocation();
+		if ( location == null || mDescriptor == null ) return Float.MAX_VALUE;
+		
 		for ( int i = 0; i < mDescriptor.length; i++ ){
-			double diff = mDescriptor[i] - point.getLocation()[i];
+			double diff = mDescriptor[i] - location[i];
 			sum += diff*diff; 
 		}
-		return (double)Math.sqrt(sum);
+		return sum;
+		//return (double)Math.sqrt(sum);
 	}
 
 	public Float getCoord(int dimension) {
