@@ -71,8 +71,8 @@ public class HarrisFast {
 		v12 = image[x1][y2];
 		v22 = image[x2][y2];
 
-		float sx = ((v20 + 2 * v21 + v22) - (v00 + 2 * v01 + v02)) / (4 * 255f);
-		float sy = ((v02 + 2 * v12 + v22) - (v00 + 2 * v10 + v20)) / (4 * 255f);
+		float sx = ((v20 + 2 * v21 + v22) - (v00 + 2 * v01 + v02)) / (1200f);
+		float sy = ((v02 + 2 * v12 + v22) - (v00 + 2 * v10 + v20)) / (1200f);
 		return new float[] { sx, sy };
 	}
 
@@ -164,10 +164,10 @@ public class HarrisFast {
 		return true;
 	}
 
+	private static 	final double scala = 255/Math.log(256);
 	private float[][] computeHarrisMap(double k) {
 
 		float[][] harrismap = new float[width][height];
-
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 
@@ -175,7 +175,7 @@ public class HarrisFast {
 				if (h <= 0)
 					continue;
 				// log scale
-				h = 255 * Math.log(1 + h) / Math.log(1 + 255);
+				h = Math.log(1 + h) * scala;
 				// store
 				harrismap[x][y] = (float) h;
 			}
