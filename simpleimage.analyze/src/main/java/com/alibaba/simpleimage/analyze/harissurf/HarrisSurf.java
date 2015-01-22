@@ -453,7 +453,8 @@ public class HarrisSurf {
 	public static Map<SURFInterestPoint, SURFInterestPoint> match(
 			List<SURFInterestPoint> src, List<SURFInterestPoint> dest) {
 
-		Map<SURFInterestPoint, SURFInterestPoint> matchMap = new HashMap<SURFInterestPoint, SURFInterestPoint>();
+		Map<SURFInterestPoint, SURFInterestPoint> matchMap = new HashMap<SURFInterestPoint, SURFInterestPoint>(
+				src.size() * 14 / 10);
 		for (SURFInterestPoint sp : src) {
 			float min_dist = Float.MAX_VALUE;
 			SURFInterestPoint min_sp = null;
