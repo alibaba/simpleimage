@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.alibaba</groupId>
 		<artifactId>simpleimage.parent</artifactId>
-		<version>1.2.3</version>
+		<version>1.2.4</version>
 	</parent>
 
 	<groupId>com.alibaba</groupId>
@@ -23,7 +23,7 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>simpleimage.core</artifactId>
-			<version>1.2.2</version>
+			<version>1.2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
