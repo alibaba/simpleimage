@@ -479,22 +479,22 @@ public class OctaveSpace {
 						dir -= Math.PI;
 
 					// 统一到8个方向上
-					float idxDir = (float) ((dir * directionCount) / (2.0 * Math.PI)); // directionCount/8为每一个度数有几个方向，然后
-																						// *
-																						// dir就统一到一至的方向上来了
-					if (idxDir < 0.0)
+					double idxDir = (double) ((dir * directionCount) / (2.0 * Math.PI)); // directionCount/8为每一个度数有几个方向，然后
+																							// *
+					// dir就统一到一至的方向上来了
+
+					if (idxDir < 0.0) {
 						idxDir += directionCount;
+					}
 					dirIdx[0] = (int) idxDir;
 					dirIdx[1] = (dirIdx[0] + 1) % directionCount; // 下一个方向
-					dirWeight[0] = 1.0f - (idxDir - dirIdx[0]); // 和下一个方向所差的值
-					dirWeight[1] = idxDir - dirIdx[0]; // 和所在方向所差的值
+					dirWeight[0] = (float) (1.0 - (idxDir - dirIdx[0])); // 和下一个方向所差的值
+					dirWeight[1] = (float) (idxDir - dirIdx[0]); // 和所在方向所差的值
 					for (int iy = 0; iy < 2; ++iy) {
 						for (int ix = 0; ix < 2; ++ix) {
 							for (int d = 0; d < 2; ++d) {
 								int idx = xIdx[ix] * fp.yDim * fp.oDim
 										+ yIdx[iy] * fp.oDim + dirIdx[d];
-
-								idx %= 128;
 								fp.features[idx] += xWeight[ix] * yWeight[iy]
 										* dirWeight[d] * magW;
 							}
