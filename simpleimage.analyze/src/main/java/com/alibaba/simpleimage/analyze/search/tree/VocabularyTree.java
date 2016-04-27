@@ -7,7 +7,7 @@ import com.alibaba.simpleimage.analyze.search.cluster.Clusterable;
 public interface VocabularyTree {
 	public List<Float> getCurrentWords();
 
-	public List<Integer> addImage(List<? extends Clusterable> imagePoint);
+	public List<Integer> getVisualWords(List<? extends Clusterable> imagePoint);
 
 	public void reset();
 }

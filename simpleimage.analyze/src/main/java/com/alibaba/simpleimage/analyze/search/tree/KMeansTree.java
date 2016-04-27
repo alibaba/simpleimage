@@ -81,17 +81,17 @@ public class KMeansTree implements VocabularyTree, Serializable {
         return nodes;
     }
 
-    public List<Integer> addImage(List<? extends Clusterable> imagePoints) {
+    public List<Integer> getVisualWords(List<? extends Clusterable> imagePoints) {
         List<Integer> visual_word_list = new ArrayList<Integer>();
         for (Clusterable value : imagePoints) {
-            visual_word_list.add(addPoint(value));
+            visual_word_list.add(getVisualWord(value));
         }
         return visual_word_list;
     }
 
-    public int addPoint(Clusterable point) {
+    public int getVisualWord(Clusterable point) {
         numWords += 1;
-        return rootNode.addValue(point);
+        return rootNode.getValueId(point);
     }
 
     /**

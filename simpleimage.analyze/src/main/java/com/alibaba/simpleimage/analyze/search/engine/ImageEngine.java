@@ -162,7 +162,7 @@ public class ImageEngine {
     }
 
     public List<Integer> quntinize(List<? extends Clusterable> points) {
-        return tree.addImage(points);
+        return tree.getVisualWords(points);
     }
 
     public List<Score> getCandidate(List<Integer> visualWords) {
@@ -219,7 +219,7 @@ public class ImageEngine {
         List<Integer> visualWords;
         LinkedList<Integer> tmpInvertFile;
 
-        visualWords = tree.addImage(points);
+        visualWords = tree.getVisualWords(points);
         Collections.sort(visualWords);
         simpleHistogramFile.put(Id, visualWords);
 

@@ -94,7 +94,7 @@ public class KMeansTreeNode implements Clusterable, Serializable {
 	/**
 	 * Adds a clusterable to the current vocab tree for word creation
 	 */
-	public int addValue(Clusterable c) {
+	public int getValueId(Clusterable c) {
 		currentItems++;
 		/*
 		 * if(isLeafNode()) { return id; }
@@ -102,7 +102,7 @@ public class KMeansTreeNode implements Clusterable, Serializable {
 		int index = TreeUtils.findNearestNodeIndex(subNodes, c);
 		if (index >= 0) {
 			KMeansTreeNode node = subNodes.get(index);
-			return node.addValue(c);
+			return node.getValueId(c);
 		}
 		return id;
 	}
