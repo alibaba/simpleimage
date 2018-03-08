@@ -60,20 +60,21 @@ public class MatchKeys {
 
 
     public static ArrayList<Match> filterMore(List<Match> matches) {
-        Map<KDFeaturePoint, Integer> map = new HashMap<KDFeaturePoint, Integer>();
+        Map<KDFeaturePoint, Integer> map1 = new HashMap<KDFeaturePoint, Integer>();
+        Map<KDFeaturePoint, Integer> map2 = new HashMap<>();
 
         for (Match m : matches) {
-            Integer kp1V = map.get(m.fp1);
+            Integer kp1V = map1.get(m.fp1);
             int lI = (kp1V == null) ? 0 : (int) kp1V;
-            map.put(m.fp1, lI + 1);
-            Integer kp2V = map.get(m.fp2);
+            map1.put(m.fp1, lI + 1);
+            Integer kp2V = map2.get(m.fp2);
             int rI = (kp2V == null) ? 0 : (int) kp2V;
-            map.put(m.fp2, rI + 1);
+            map2.put(m.fp2, rI + 1);
         }
         ArrayList<Match> survivors = new ArrayList<Match>();
         for (Match m : matches) {
-            Integer kp1V = map.get(m.fp1);
-            Integer kp2V = map.get(m.fp2);
+            Integer kp1V = map1.get(m.fp1);
+            Integer kp2V = map2.get(m.fp2);
             if (kp1V <= 1 && kp2V <= 1) survivors.add(m);
         }
         return (survivors);
